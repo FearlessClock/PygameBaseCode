@@ -1,15 +1,14 @@
 import pygame
+from pygame.rect import Rect
 
 
-class UIElement:
+class UIElement(pygame.sprite.Sprite):
 
     def __init__(self, width, height, x, y, image):
+        pygame.sprite.Sprite.__init__(self)
         self.width = width
         self.height = height
         self.x = x
         self.y = y
         self.image = image
-
-    def drawToScreen(self, screen, font_renderer=None):
-        if self.image is not None:
-            screen.blit(self.image, (self.x, self.y))
+        self.rect = Rect(x, y, width, height)

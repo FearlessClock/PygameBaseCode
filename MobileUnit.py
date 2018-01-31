@@ -2,13 +2,14 @@ import pygame
 
 from Vector import Vector
 
-class MobileUnit:
+class MobileUnit(pygame.sprite.Sprite):
     """The base class for the interacting candidates"""
 
     def __init__(self, x, y, filename, tileSize, scale):
+        super.__init__(self)
         self.pos = Vector(x, y)
         self.scale = scale
-        self.loadImage(filename, tileSize)
+        self.image = self.loadImage(filename, tileSize)
         self.icon = self.loadImage(filename, tileSize)
 
     def drawNPC(self, screen, stepSize):
