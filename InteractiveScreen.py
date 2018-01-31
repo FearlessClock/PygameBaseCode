@@ -12,6 +12,3 @@ class InteractiveScreen:
         self.elements.draw(surface)
         self.interactiveElements.draw(surface)
 
-    def update(self):
-        self.elements.update()
-        self.interactiveElements.update()

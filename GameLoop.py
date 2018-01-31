@@ -66,8 +66,7 @@ class Gameloop:
         exit(0)
 
     def StartMenuState(self):
-        self.handleEvents()
-        self.startMenu.
+        self.startMenu.handleInput(self.getHandleInputs())
         self.window.drawScreen("StartMenu")
         return True
 
@@ -78,26 +77,33 @@ class Gameloop:
 
         return True
 
+    def getHandleInputs(self):
+        return pygame.event.get(pygame.KEYDOWN)
+
     def handleEvents(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+            elif event.type == pygame.USEREVENT:
+                print(event.code)
+            elif event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+                pygame.event.post(event)
 
-        return
 
     def startLoop(self):
         """The main function that runs the whole game."""
 
         # Game loop
         while pygame.display.get_init():
-            start = Time.clock()
             if self.gameState == GameStates.GAME:
                 self.RPGState()
             elif self.gameState == GameStates.MENU:
                 self.MenuState()
             elif self.gameState == GameStates.STARTMENU:
                 self.StartMenuState()
+            self.handleEvents()
+            pygame.event.pump()
 
             try:
                 pygame.display.update()
