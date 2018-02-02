@@ -12,3 +12,9 @@ class UIElement(pygame.sprite.Sprite):
         self.y = y
         self.image = pygame.transform.scale(image, (width, height))
         self.rect = Rect(x, y, width, height)
+
+    def draw(self, window):
+        window.screen.blit(self.image, (self.x, self.y))
+
+    def changeImage(self, newImage):
+        self.image = newImage

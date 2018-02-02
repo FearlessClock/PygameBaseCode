@@ -1,5 +1,7 @@
+import os
 import pygame
 
+from TileLoader import TileLoader
 from Vector import Vector
 
 
@@ -20,7 +22,12 @@ class Window:
         self.activeScreen = 0
         self.screenDictionary = {}
 
-        # self.tileLoader = TileLoader(TILE_SIZE, windowSize)
+        self.tileLoader = TileLoader(TILE_SIZE, windowSize)
+
+        self.tileLoader.addSpriteSheet("player", os.path.join('images', 'playerSpriteSheet.png'), Vector(460, 559), Vector(80, 80), 4, 4)
+        self.tileLoader.addSpriteSheet("startMenuBackground", os.path.join('images', 'blablaMockup.png'), Vector(640, 540), Vector(500, 500), 1, 1)
+        self.tileLoader.addSpriteSheet("button", os.path.join('images', 'buttonSpriteSheet.png'), Vector(100, 30), Vector(100, 30), 1, 2)
+
 
         # self.mapHolder = MapHolder(TILE_SIZE, self.tileLoader)
 
@@ -42,5 +49,5 @@ class Window:
     def drawScreen(self, screenName):
         """Draw the screen, characters and pop up if activated"""
         self.clearScreen()
-        self.screens[self.screenDictionary[screenName]].drawScreen(self.screen)
-        pygame.display.flip()
+        self.screens[self.screenDictionary[screenName]].drawScreen(self)
+
