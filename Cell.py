@@ -1,6 +1,5 @@
 import pygame as pygame
 
-import TileLoader
 from Vector import Vector
 
 
