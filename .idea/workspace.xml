@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="074498ed-6de7-4506-9255-3624367220ed" name="Default" comment="Feat(UI): Made the event system better, Changed UI interaction to better use groups">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/playerSpriteSheet.png" afterPath="$PROJECT_DIR$/images/playerSpriteSheet.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AnimationController.py" afterPath="$PROJECT_DIR$/AnimationController.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameLoop.py" afterPath="$PROJECT_DIR$/GameLoop.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InteractiveScreen.py" afterPath="$PROJECT_DIR$/InteractiveScreen.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/StartMenu.py" afterPath="$PROJECT_DIR$/StartMenu.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TileLoader.py" afterPath="$PROJECT_DIR$/TileLoader.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UIButton.py" afterPath="$PROJECT_DIR$/UIButton.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UIElement.py" afterPath="$PROJECT_DIR$/UIElement.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UIImage.py" afterPath="$PROJECT_DIR$/UIImage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Window.py" afterPath="$PROJECT_DIR$/Window.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,11 +16,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Window.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Window.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Window.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="269">
-                  <caret line="34" column="113" lean-forward="false" selection-start-line="34" selection-start-column="113" selection-end-line="34" selection-end-column="113" />
+                <state relative-caret-position="606">
+                  <caret line="64" column="62" lean-forward="false" selection-start-line="64" selection-start-column="62" selection-end-line="64" selection-end-column="62" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -40,8 +31,8 @@
           <file leaf-file-name="StartMenu.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/StartMenu.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="12" column="70" lean-forward="false" selection-start-line="12" selection-start-column="70" selection-end-line="12" selection-end-column="70" />
+                <state relative-caret-position="283">
+                  <caret line="54" column="28" lean-forward="true" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
                   <folding>
                     <element signature="e#0#23#0" expanded="true" />
                   </folding>
@@ -81,11 +72,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="GameLoop.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="GameLoop.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/GameLoop.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1904">
-                  <caret line="120" column="30" lean-forward="false" selection-start-line="120" selection-start-column="30" selection-end-line="120" selection-end-column="30" />
+                <state relative-caret-position="399">
+                  <caret line="109" column="50" lean-forward="false" selection-start-line="109" selection-start-column="50" selection-end-line="109" selection-end-column="50" />
                   <folding>
                     <element signature="e#84#93#0" expanded="true" />
                   </folding>
@@ -122,8 +113,8 @@
           <file leaf-file-name="AnimationController.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/AnimationController.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
-                  <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+                <state relative-caret-position="612">
+                  <caret line="39" column="32" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
@@ -132,8 +123,8 @@
           <file leaf-file-name="TileLoader.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/TileLoader.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="527">
-                  <caret line="36" column="82" lean-forward="true" selection-start-line="36" selection-start-column="82" selection-end-line="36" selection-end-column="82" />
+                <state relative-caret-position="436">
+                  <caret line="38" column="8" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
@@ -152,8 +143,8 @@
           <file leaf-file-name="InteractiveScreen.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/InteractiveScreen.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="680">
-                  <caret line="40" column="21" lean-forward="false" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+                <state relative-caret-position="416">
+                  <caret line="27" column="37" lean-forward="true" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
                   <folding />
                 </state>
               </provider>
@@ -169,6 +160,11 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>print</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -188,13 +184,13 @@
         <option value="$PROJECT_DIR$/Cell.py" />
         <option value="$PROJECT_DIR$/TileLoader.py" />
         <option value="$PROJECT_DIR$/UIImage.py" />
-        <option value="$PROJECT_DIR$/StartMenu.py" />
         <option value="$PROJECT_DIR$/UIButton.py" />
         <option value="$PROJECT_DIR$/InteractiveScreen.py" />
         <option value="$PROJECT_DIR$/UIElement.py" />
         <option value="$PROJECT_DIR$/AnimationController.py" />
-        <option value="$PROJECT_DIR$/GameLoop.py" />
         <option value="$PROJECT_DIR$/Window.py" />
+        <option value="$PROJECT_DIR$/StartMenu.py" />
+        <option value="$PROJECT_DIR$/GameLoop.py" />
       </list>
     </option>
   </component>
@@ -312,11 +308,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1546875" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286638" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18287526" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -330,7 +326,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286638" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -445,6 +440,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9618">
           <caret line="461" column="0" lean-forward="false" selection-start-line="461" selection-start-column="0" selection-end-line="461" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -581,13 +577,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/InteractionMenu.py" />
     <entry file="file://$PROJECT_DIR$/Profile.py" />
-    <entry file="file://$PROJECT_DIR$/Player.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="9" column="17" lean-forward="true" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Vector.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -637,6 +626,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2441">
           <caret line="549" column="8" lean-forward="false" selection-start-line="549" selection-start-column="8" selection-end-line="549" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -683,29 +673,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UIImage.py">
+    <entry file="file://$PROJECT_DIR$/AnimationController.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="36" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+        <state relative-caret-position="612">
+          <caret line="39" column="32" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="64" column="62" lean-forward="false" selection-start-line="64" selection-start-column="62" selection-end-line="64" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Player.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="44" column="8" lean-forward="false" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/InteractiveScreen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="21" lean-forward="false" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+        <state relative-caret-position="416">
+          <caret line="27" column="37" lean-forward="true" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StartMenu.py">
+    <entry file="file://$PROJECT_DIR$/UIImage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" column="70" lean-forward="false" selection-start-line="12" selection-start-column="70" selection-end-line="12" selection-end-column="70" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="8" column="36" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -717,39 +723,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/TileLoader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="38" column="8" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StartMenu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="54" column="28" lean-forward="true" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/GameLoop.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1904">
-          <caret line="120" column="30" lean-forward="false" selection-start-line="120" selection-start-column="30" selection-end-line="120" selection-end-column="30" />
+        <state relative-caret-position="399">
+          <caret line="109" column="50" lean-forward="false" selection-start-line="109" selection-start-column="50" selection-end-line="109" selection-end-column="50" />
           <folding>
             <element signature="e#84#93#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AnimationController.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Window.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="34" column="113" lean-forward="false" selection-start-line="34" selection-start-column="113" selection-end-line="34" selection-end-column="113" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TileLoader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="36" column="82" lean-forward="true" selection-start-line="36" selection-start-column="82" selection-end-line="36" selection-end-column="82" />
-          <folding />
         </state>
       </provider>
     </entry>

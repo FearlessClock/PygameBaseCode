@@ -108,7 +108,6 @@ class Gameloop:
         # Game loop
         while pygame.display.get_init():
             self.deltaTime = self.clock.get_time()
-            print(self.deltaTime, self.clock.get_time())
             for stateOfGame in self.stateFunctionDict.keys():
                 if self.gameState == stateOfGame:
                     self.getStateFunctionCallback(self.gameState)()

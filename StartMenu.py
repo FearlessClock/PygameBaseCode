@@ -12,10 +12,11 @@ class StartUpMenu(InteractiveScreen):
         self.addVisuelElement(UIImage(0,500, 500, 0, 0, tileLoader.getImageByName('startMenuBackground', 0, 0)))
         self.addVisuelElement(UIImage(1,80, 80, 0, 0, tileLoader.getAnimationFrameByName('player')))
         self.getVisuelElementByIndex(1).addAnimationController(tileLoader.getAnimationController('player'))
+        self.animationCounter = 0
         self.addInteractiveElement(UIButton(0, 100, 30, 100, 150, tileLoader.getImageByName('button', 0, 1),
                                             tileLoader.getImageByName('button', 0, 0), self.StartGame, "button"))
         self.addInteractiveElement(UIButton(1, 100, 30, 100, 250, tileLoader.getImageByName('button', 0, 1),
-                                            tileLoader.getImageByName('button', 0, 0), None, "button"))
+                                            tileLoader.getImageByName('button', 0, 0), self.animationChange, "button"))
         self.addInteractiveElement(UIButton(2, 100, 30, 100, 350, tileLoader.getImageByName('button', 0, 1),
                                             tileLoader.getImageByName('button', 0, 0), self.QuitGame, "button"))
 
@@ -53,6 +54,17 @@ class StartUpMenu(InteractiveScreen):
             pygame.event.post(pygame.event.Event(pygame.QUIT))
         except pygame.error:
             print("Queue is full")
+
+    def animationChange(self):
+        self.animationCounter = (self.animationCounter + 1 ) %4
+        if self.animationCounter == 0:
+            self.tileLoader.setAnimationForNameToName("player", 'playerUp')
+        elif self.animationCounter == 1:
+            self.tileLoader.setAnimationForNameToName("player", 'playerDown')
+        elif self.animationCounter == 2:
+            self.tileLoader.setAnimationForNameToName("player", 'playerLeft')
+        elif self.animationCounter == 3:
+            self.tileLoader.setAnimationForNameToName("player", 'playerRight')
 
     def StartGame(self):
         try:
