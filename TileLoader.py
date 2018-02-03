@@ -30,6 +30,9 @@ class TileLoader:
     def addAnimation(self, animationName, animationController):
         self.loadedAnimations.update({animationName: animationController})
 
+    def getAnimationController(self, animationName):
+        return self.loadedAnimations.get(animationName)
+
     def getAnimationFrameByName(self, animationName):
         return self.loadedAnimations.get(animationName).getCurrentAnimationFrame()
 

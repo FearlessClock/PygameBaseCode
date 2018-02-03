@@ -46,7 +46,7 @@ class Gameloop:
 
         # window.drawScreen(mapHolder, player, NPCManagerIns)
         self.clock = pygame.time.Clock()
-        time = 0
+        self.deltaTime = 0
 
         pygame.mixer.init()
         # ~ default_font = pygame.font.get_default_font()
@@ -78,6 +78,7 @@ class Gameloop:
 
     def StartMenuState(self):
         self.startMenu.handleInput(self.getInputs())
+        self.window.updateScreen("StartMenu", self.deltaTime)
         self.window.drawScreen("StartMenu")
         return True
 
@@ -104,9 +105,10 @@ class Gameloop:
 
     def startLoop(self):
         """The main function that runs the whole game."""
-
         # Game loop
         while pygame.display.get_init():
+            self.deltaTime = self.clock.get_time()
+            print(self.deltaTime, self.clock.get_time())
             for stateOfGame in self.stateFunctionDict.keys():
                 if self.gameState == stateOfGame:
                     self.getStateFunctionCallback(self.gameState)()
@@ -117,3 +119,5 @@ class Gameloop:
                 pygame.display.update()
             except:
                 print("Error")
+
+            self.clock.tick(60)

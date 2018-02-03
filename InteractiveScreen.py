@@ -14,16 +14,33 @@ class InteractiveScreen:
     def addVisuelElement(self, element):
         self.visuelElements.append(element)
 
-    def getInteractiveElement(self, id):
+    def getInteractiveElementByIndex(self, id):
         if len(self.interactiveElements) > id:
             return self.interactiveElements[id]
         return None
 
-    def getVisuelElement(self, id):
+    def getVisuelElementByIndex(self, id):
         if len(self.visuelElements) > id:
             return self.visuelElements[id]
         return None
 
+    def getVisuelElementById(self, id):
+        for element in self.visuelElements:
+            if element.id == id:
+                return element
+        return None
+
+    def getInteractiveElementById(self, id):
+        for element in self.interactiveElements:
+            if element.id == id:
+                return element
+        return None
+
+    def updateScreen(self, deltaTime):
+        for elem in self.visuelElements:
+            elem.update(deltaTime)
+        for elem in self.interactiveElements:
+            elem.update(deltaTime)
 
     def drawScreen(self, surface):
         for elem in self.visuelElements:
