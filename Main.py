@@ -3,7 +3,7 @@ from Vector import Vector
 
 
 def main():
-    gameloop = GameLoop.Gameloop("GameName", Vector(500, 500), Vector(80, 80))
+    gameloop = GameLoop.Gameloop("GameName", Vector(500, 500), Vector(500/8, 500/8))
     gameloop.startLoop()
 
 

@@ -25,7 +25,10 @@ class TileLoader:
 
     def addSpriteSheet(self, spriteName, filename, realSpriteSize, scaledSpriteSize, rowCount, columeCount):
         spriteSheet = SpriteSheet(filename)
-        self.loadedImages.update({spriteName: spriteSheet.load_grid((0, 0, realSpriteSize.x, realSpriteSize.y), columeCount, rowCount, Vector(scaledSpriteSize.x, scaledSpriteSize.y), (255,0,255))})
+        self.loadedImages.update({spriteName: spriteSheet.load_grid((0, 0, realSpriteSize.x, realSpriteSize.y),
+                                                                    columeCount, rowCount,
+                                                                    Vector(scaledSpriteSize.x, scaledSpriteSize.y),
+                                                                    (255, 0, 255))})
 
     def addAnimation(self, animationName, animationController):
         self.loadedAnimations.update({animationName: animationController})
@@ -47,3 +50,7 @@ class TileLoader:
 
     def getImageGridByName(self, imageName):
         return self.loadedImages.get(imageName)
+
+    def getTileFromName(self, imageName, nmbr):
+        grid = self.getImageGridByName(imageName)
+        return grid[int(nmbr / len(grid))][nmbr % len(grid)]

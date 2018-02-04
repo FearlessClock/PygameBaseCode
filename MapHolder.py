@@ -4,8 +4,8 @@ from TileLoader import TileLoader
 
 class MapHolder:
 
-    def __init__(self, tileSize, tileLoader):
-        self.mapNames = ["map1", "map2", "map3", "map4", "map5"]
+    def __init__(self, filenames, tileSize, tileLoader):
+        self.mapNames = filenames  #
         self.maps = []
         self.loadedMap = None
         mapValues = []
@@ -13,8 +13,9 @@ class MapHolder:
         self.currentMap = 1
         self.tileSize = tileSize
         for i in range(len(self.mapNames)):
-            mapValues.append(Map(self.mapNames[i], self.tileSize, tileLoader))
-            idValues.append(mapValues[len(mapValues)-1].id)
+            map = Map(self.mapNames[i], self.tileSize, tileLoader)
+            mapValues.append(map)
+            idValues.append(map.id)
         self.maps = dict(zip(idValues, mapValues))
         self.changeToMap(self.currentMap)
 

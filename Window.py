@@ -29,6 +29,8 @@ class Window:
         self.tileLoader.addSpriteSheet("startMenuBackground", os.path.join('images', 'blablaMockup.png'), Vector(640, 540), Vector(500, 500), 1, 1)
         self.tileLoader.addSpriteSheet("button", os.path.join('images', 'buttonSpriteSheet.png'), Vector(100, 30), Vector(100, 30), 1, 2)
 
+        self.tileLoader.addSpriteSheet("mapTiles", os.path.join('images', "TileSheet.png"), Vector(16,16), Vector(self.TILE_SIZE.x,self.TILE_SIZE.y), 3,3)
+        self.tileLoader.addSpriteSheet("healthBars", os.path.join('images', 'healthBarSpriteSheet.png'), Vector(200, 50), Vector(200, 50), 1, 5)
         playerAnimationUp = AnimationStrip(self.tileLoader.getImageStripByName("player", 1), "playerUp", 100)
         playerAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("player", 0), "playerDown", 100)
         playerAnimationLeft = AnimationStrip(self.tileLoader.getImageStripByName("player", 2), "playerLeft", 100)
@@ -58,7 +60,7 @@ class Window:
 
     def drawScreen(self, screenName):
         """Draw the screen, characters and pop up if activated"""
-        self.clearScreen()
+        #self.clearScreen()
         self.screens[self.screenDictionary[screenName]].drawScreen(self)
 
     def updateScreen(self, screenName, deltaTime):

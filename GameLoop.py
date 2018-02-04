@@ -8,10 +8,12 @@ import os
 
 import pygame
 
-from GameStates import GameStates
-# Size of the screen
-from StartMenu import StartUpMenu
 import UserEvents
+from GUI import GUI
+from GameStates import GameStates
+from MainGameScreen import MainGameScreen
+from MapHolder import MapHolder
+from StartMenu import StartUpMenu
 from Window import Window
 
 
@@ -30,7 +32,11 @@ class Gameloop:
         self.window = Window(screenSize, gameName, self.TILE_SIZE, self.font_renderer)
         self.startMenu = StartUpMenu(self.window.tileLoader)
         self.window.addScreenToRender(self.startMenu, "StartMenu")
-        pygame.mixer.init()
+
+        self.GUI = GUI(self.window.tileLoader)
+        self.window.addScreenToRender(self.GUI, "GUI")
+
+        # pygame.mixer.init()
 
         # Fill background
         self.window.clearScreen()
@@ -41,14 +47,18 @@ class Gameloop:
         self.addStateFunction(GameStates.GAME, self.GameState)
         self.addStateFunction(GameStates.MENU, self.MenuState)
 
+        # Init the maps
+        mapHolder = MapHolder(["map1", "map2"], self.TILE_SIZE, self.window.tileLoader)
+        self.mainGameScreen = MainGameScreen(mapHolder)
+        self.window.addScreenToRender(self.mainGameScreen, "MainGame")
         # Init the player
-        #self.player = Player(2, 1 + 0.2, window.tileLoader, window.TILE_SIZE)
+        # self.player = Player(2, 1 + 0.2, window.tileLoader, window.TILE_SIZE)
 
         # window.drawScreen(mapHolder, player, NPCManagerIns)
         self.clock = pygame.time.Clock()
         self.deltaTime = 0
 
-        pygame.mixer.init()
+        # pygame.mixer.init()
         # ~ default_font = pygame.font.get_default_font()
         self.window.drawScreen("StartMenu")
 
@@ -86,7 +96,10 @@ class Gameloop:
         return True
 
     def GameState(self):
-
+        self.window.clearScreen()
+        self.window.drawScreen("MainGame")
+        self.window.updateScreen("GUI", self.deltaTime)
+        self.window.drawScreen("GUI")
         return True
 
     def getInputs(self):
@@ -101,7 +114,6 @@ class Gameloop:
                 self.changeGameLoopStateToGAME()
             elif event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                 pygame.event.post(event)
-
 
     def startLoop(self):
         """The main function that runs the whole game."""

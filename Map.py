@@ -5,12 +5,23 @@ import pygame
 
 from Cell import Cell
 
+
 class Map:
     """The base class for the interacting candidates"""
+
     def __init__(self, mapName, tileSize, tileLoader):
         self.id = 0
         self.neighbors = []
-        self.map, self.width, self.height = self.readMap(mapName, tileLoader)
+
+        # Used for collision detection
+        self.solidObjectGroup = pygame.sprite.Group()
+        self.notSolidObjectGroup = pygame.sprite.Group()
+        # Used to show the correct blocks on screen
+        self.cameraViewGroup = pygame.sprite.Group()
+
+        self.map, self.width, self.height = self.readMap("maps", mapName, tileLoader, "mapTiles",
+                                                         {0: False, 1: True, 2: False, 3: True, 4: True},
+                                                         {1: 0, 2: 0, 3: 0, 4: 0})
         self.tileSize = tileSize
 
     def getWidth(self):
@@ -22,90 +33,86 @@ class Map:
     def getTileAt(self, pos):
         return self.map[pos.y][pos.x]
 
+    def getTilesInRect(self, rect):
+        x = 0
+        y = 0
+        tiles = []
+        for i in range(rect[1], rect[1] + rect[3]):
+            for j in range(rect[0], rect[0] + rect[2]):
+                self.map[i][j].setPosition(x, y)
+                tiles.append(self.map[i][j])
+                x += 1
+            x = 0
+            y += 1
+        return tiles
+
+
+    def setVisibleTiles(self, rect):
+        tiles = self.getTilesInRect(rect)
+        # if tiles is not None:
+        #     for tile in tiles:
+        self.cameraViewGroup.add(tiles)
+
     def isObstacle(self, x, y):
         if self.map[int(y)][int(x)].solid:
             return True
         return False
 
-
-    def readMap(self, mapName, tileLoader):
+    def readMap(self, filelocation, mapName, tileLoader, spriteSheetName, tileSignificanceDict,
+                doorwaySignificanceDict):
         """Return:
-                Tile size, maze size, the maze and the position of the item
+                Tile size, map size, the map and the position of the item
         """
 
-        # Read the file containing the maze
-        file = open(os.path.join('Maps', str(mapName) + '.csv'), 'r')
+        # Read the file containing the map
+        file = open(os.path.join(filelocation, str(mapName) + '.csv'), 'r')
 
         # Get the id
         self.id = int(file.readline())
 
-        # Get the neighbors
+        # Get the neighbors ID
         neighbors = file.readline().split(',')
         neighbors = [line.rstrip('\n') for line in neighbors]
         self.neighbors = neighbors
 
         # Get the size of the map
         mapSize = file.readline().split(',')
-        mapSize = [line.rstrip('\n') for line in mapSize]   # Strip all the trailling newlines
-
-
+        mapSize = [line.rstrip('\n') for line in mapSize]  # Strip all the trailling newlines
 
         width = int(mapSize[0])
         height = int(mapSize[1])
 
-        maze = []
+        map = []
 
-        """Generate the empty maze"""
+        """ Fill the map with the contents of the map text
+            If the value is > 0, the value is a tile, if < 0 the value is a door"""
         for i in range(height):
-            maze.append([])
-            for j in range(width):
-                maze[i].append(Cell(j, i, False, tileLoader.grass))
-
-        """Fill the maze with the contents of the maze text"""
-        for i in range(height):
+            map.append([])
             fileRead = file.readline().split(',')
+            # If the line is empty
             if len(fileRead) == 1:
                 continue
             for j in range(width):
                 value = int(fileRead[j])
                 if value >= 0:
-                    isSolid = False
-                    tile = tileLoader.grass
-                    if value == 0:
-                        isSolid = False
-                        tile = 0
-                    elif value == 1:
-                        isSolid = False
-                        tile = 1
-                    elif value == 2:
-                        isSolid = True
-                        tile = 2
-                    elif value == 3:
-                        isSolid = True
-                        tile = 3
-                    elif value == 4:
-                        isSolid = False
-                        tile = 4
-                    elif value == 5:
-                        isSolid = True
-                        tile = 5
-                    elif value == 6:
-                        isSolid = True
-                        tile = 6
-                    elif value == 7:
-                        isSolid = True
-                        tile = 7
-                    elif value == 8:
-                        isSolid = True
-                        tile = 8
-                    elif value == 9:
-                        isSolid = True
-                        tile = 9
-
-                    maze[i][j] = Cell(j, i, isSolid, tileLoader.getTile(tile))
-                elif -6 <= value <= -2:         # Doorway to another world
-                    maze[i][j] = Cell(j, i, False, tileLoader.getTile(4 if abs(int(fileRead[j])) == 6 else 0), abs(int(fileRead[j])))
+                    tile = value
+                    isSolid = tileSignificanceDict.get(value)
+                    cell = Cell(j, i, isSolid, tileLoader.getTileFromName(spriteSheetName, tile))
+                    map[i].append(cell)
+                    if isSolid:
+                        self.solidObjectGroup.add(cell)
+                    else:
+                        self.notSolidObjectGroup.add(cell)
+                elif value < 0:  # Doorway to another world
+                    cell = Cell(j, i, False, tileLoader.getTileFromName(spriteSheetName,
+                                                                        doorwaySignificanceDict[abs(int(fileRead[j]))]),
+                                abs(int(fileRead[j])))
+                    map[i].append(cell)
+                    self.notSolidObjectGroup.add(cell)
 
         file.close()
 
-        return maze, width, height
+        return map, width, height
+
+    def draw(self, surface):
+        self.cameraViewGroup.draw(surface)
