@@ -13,6 +13,7 @@ from GUI import GUI
 from GameStates import GameStates
 from MainGameScreen import MainGameScreen
 from MapHolder import MapHolder
+from Player import Player
 from StartMenu import StartUpMenu
 from Window import Window
 
@@ -48,11 +49,12 @@ class Gameloop:
         self.addStateFunction(GameStates.MENU, self.MenuState)
 
         # Init the maps
-        mapHolder = MapHolder(["map1", "map2"], self.TILE_SIZE, self.window.tileLoader)
-        self.mainGameScreen = MainGameScreen(mapHolder)
+        self.player = Player(4, 2, self.window.tileLoader, self.TILE_SIZE)
+        self.mapHolder = MapHolder(["map1", "map2"], self.TILE_SIZE, self.window.tileLoader)
+        self.mainGameScreen = MainGameScreen(self.mapHolder, self.player)
         self.window.addScreenToRender(self.mainGameScreen, "MainGame")
         # Init the player
-        # self.player = Player(2, 1 + 0.2, window.tileLoader, window.TILE_SIZE)
+        #
 
         # window.drawScreen(mapHolder, player, NPCManagerIns)
         self.clock = pygame.time.Clock()
@@ -97,13 +99,15 @@ class Gameloop:
 
     def GameState(self):
         self.window.clearScreen()
+        self.window.getScreen("MainGame").movePlayer(self.getInputs())
+        self.window.updateScreen("MainGame", self.deltaTime)
         self.window.drawScreen("MainGame")
         self.window.updateScreen("GUI", self.deltaTime)
         self.window.drawScreen("GUI")
         return True
 
     def getInputs(self):
-        return pygame.event.get(pygame.KEYDOWN)
+        return pygame.event.get([pygame.KEYDOWN, pygame.KEYUP])
 
     def handleEvents(self):
         for event in pygame.event.get():

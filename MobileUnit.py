@@ -1,25 +1,38 @@
 import pygame
+from pygame.rect import Rect
 
+from Direction import Direction
 from Vector import Vector
+
 
 class MobileUnit(pygame.sprite.Sprite):
     """The base class for the interacting candidates"""
 
-    def __init__(self, x, y, filename, tileSize, scale):
-        super.__init__(self)
+    def __init__(self, x, y, tileLoader, tileSize, animationController, directionSigDict, scale):
+        pygame.sprite.Sprite.__init__(self)
         self.pos = Vector(x, y)
         self.scale = scale
-        self.image = self.loadImage(filename, tileSize)
-        self.icon = self.loadImage(filename, tileSize)
+        self.tileSize = tileSize
+        self.animationController = animationController
+        self.directionSignificanceDict = directionSigDict
+        animationController.changeCurrentAnimationTo(directionSigDict.get(Direction.DOWN))
+        image = animationController.getCurrentAnimationFrame()
+        self.image = pygame.transform.scale(image, (int(image.get_width() * scale), int(image.get_height() * scale)))
+        self.rect = Rect(x*100, y*100, image.get_width(), image.get_height())
+        self.direction = Direction.DOWN
 
-    def drawNPC(self, screen, stepSize):
-        curRect = (self.pos.x * stepSize.x, self.pos.y * stepSize.y, stepSize.x - 2, stepSize.y - 2)
-        screen.blit(self.icon, (curRect[0], curRect[1]))
+    def setPosition(self, x, y):
+        self.pos = Vector(x, y)
+        self.rect = (x*100, y*100, self.image.get_width(), self.image.get_height())
 
-    def loadImage(self, filename, tileSize):
-        image = pygame.image.load(filename)
-        return pygame.transform.scale(image, (int(tileSize.x*self.scale), int(tileSize.y*self.scale)))
+    def setDirection(self, direction):
+        self.direction = direction
 
-    @staticmethod
-    def checkEmpty(x, y, maze):
-        return True
+    def currentAnimationFrame(self):
+        return self.animationController.getCurrentAnimationFrame()
+
+    def stepCurrentAnimation(self, dt):
+        self.animationController.stepCurrentAnimation(dt)
+
+    def updateAnimation(self):
+        self.animationController.changeCurrentAnimationTo(self.directionSignificanceDict.get(self.direction))
