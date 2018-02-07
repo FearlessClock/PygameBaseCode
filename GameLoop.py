@@ -51,7 +51,7 @@ class Gameloop:
         # Init the maps
         self.player = Player(4, 2, self.window.tileLoader, self.TILE_SIZE)
         self.mapHolder = MapHolder(["map1", "map2"], self.TILE_SIZE, self.window.tileLoader)
-        self.mainGameScreen = MainGameScreen(self.mapHolder, self.player)
+        self.mainGameScreen = MainGameScreen(self.mapHolder, self.player, screenSize)
         self.window.addScreenToRender(self.mainGameScreen, "MainGame")
         # Init the player
         #

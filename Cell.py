@@ -12,6 +12,8 @@ class Cell(pygame.sprite.Sprite):
         self.doorway = doorway
         self.image = image
         self.rect = self.image.get_rect()
+        self.rect.x = i*self.rect.width
+        self.rect.y = j*self.rect.height
         # Position in the map matrix
         self.i = i
         self.j = j

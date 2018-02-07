@@ -34,16 +34,15 @@ class Map:
         return self.map[pos.y][pos.x]
 
     def getTilesInRect(self, rect):
-        x = 0
-        y = 0
         tiles = []
-        for i in range(rect[1], rect[1] + rect[3]):
-            for j in range(rect[0], rect[0] + rect[2]):
-                self.map[i][j].setPosition(x, y)
+        rectY = max(0, rect.y)
+        rectYMax = min(self.height, rectY + rect.height+1)
+        rectX = max(0, rect.x)
+        rectXMax = min(self.width, rectX + rect.width+1)
+
+        for i in range(rectY, rectYMax):
+            for j in range(rectX, rectXMax):
                 tiles.append(self.map[i][j])
-                x += 1
-            x = 0
-            y += 1
         return tiles
 
 
@@ -51,6 +50,7 @@ class Map:
         tiles = self.getTilesInRect(rect)
         # if tiles is not None:
         #     for tile in tiles:
+        self.cameraViewGroup.empty()
         self.cameraViewGroup.add(tiles)
 
     def isObstacle(self, x, y):

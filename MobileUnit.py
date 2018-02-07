@@ -18,7 +18,7 @@ class MobileUnit(pygame.sprite.Sprite):
         animationController.changeCurrentAnimationTo(directionSigDict.get(Direction.DOWN))
         image = animationController.getCurrentAnimationFrame()
         self.image = pygame.transform.scale(image, (int(image.get_width() * scale), int(image.get_height() * scale)))
-        self.rect = Rect(x*100, y*100, image.get_width(), image.get_height())
+        self.rect = Rect(x*tileSize.x, y*tileSize.y, image.get_width(), image.get_height())
         self.direction = Direction.DOWN
 
     def setPosition(self, x, y):

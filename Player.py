@@ -1,3 +1,4 @@
+import copy
 import pygame
 from pygame.locals import *
 
@@ -46,23 +47,31 @@ class Player(MobileUnit):
         newX = self.pos.x + self.speedX * dt / 60 / 5
         newY = self.pos.y + self.speedY * dt / 60 / 5
         currentMap = mapHolder.getCurrentMap()
-        tempRectHolder = self.rect
+        tempRectHolder = copy.deepcopy(self.rect)
+        res = copy.deepcopy(self.rect)
         self.rect[0] = newX*self.tileSize.x
-        self.rect[1] = newY*self.tileSize.y
         collision = pygame.sprite.spritecollideany(self, currentMap.solidObjectGroup)
 
         if collision is None:
             self.pos.x = newX
+            res[0] = self.rect[0]
+
+
+        self.rect = tempRectHolder
+        self.rect[1] = newY*self.tileSize.y
+        collision = pygame.sprite.spritecollideany(self, currentMap.solidObjectGroup)
+
+        if collision is None:
             self.pos.y = newY
-            self.rect[0] = self.pos.x*self.tileSize.x
-            self.rect[1] = self.pos.y*self.tileSize.y
+            res[1] = self.rect[1]
+        self.rect = res
 
         # Extremities
         tile = currentMap.getTileAt(Vector(int(newX + self.collisionOffset.x), int(newY + self.collisionOffset.y)))
-        if tile.doorway is not None:
+        if tile.doorway is not None and tile.doorway is not 0:
             mapHolder.changeToMap(currentMap.neighbors[int(tile.doorway - 1)])
             if tile.doorway == 2:
-                self.pos.y = mapHolder.getCurrentMap().height - 1 - self.sideOffset - self.headOffset
+                self.pos.y = mapHolder.getCurrentMap().height - 1
             elif tile.doorway == 3:
                 self.pos.x = 1
             elif tile.doorway == 4:
