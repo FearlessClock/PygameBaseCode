@@ -34,14 +34,13 @@ class Map:
 
     def getTilesInRect(self, rect, screenTileSize):
         tiles = []
-        rectY = max(0, rect.y)
-        rectYMax = min(self.height, rectY + rect.height + 1)
-        rectY = rectYMax - 1 - screenTileSize.height
-        rectX = max(0, rect.x)
-        rectXMax = min(self.width, rectX + rect.width + 1)
-        rectX = rectXMax - 1 - screenTileSize.width
+        rectY = max(0, rect.y-1)
+        rectYMax = min(self.height, rectY + rect.height + 3)
+        rectY = rectYMax - 3 - screenTileSize.height
+        rectX = max(0, rect.x-1)
+        rectXMax = min(self.width, rectX + rect.width + 3)
+        rectX = rectXMax - 3 - screenTileSize.width
 
-        print(rectY, rectYMax, ":", rectX, rectXMax)
 
         for i in range(rectY, rectYMax):
             for j in range(rectX, rectXMax):
@@ -50,8 +49,6 @@ class Map:
 
     def setVisibleTiles(self, rect):
         tiles = self.getTilesInRect(rect)
-        # if tiles is not None:
-        #     for tile in tiles:
         self.cameraViewGroup.empty()
         self.cameraViewGroup.add(tiles)
 
