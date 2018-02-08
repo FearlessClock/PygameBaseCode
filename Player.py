@@ -70,13 +70,13 @@ class Player(MobileUnit):
         tile = currentMap.getTileAt(Vector(int(newX + self.collisionOffset.x), int(newY + self.collisionOffset.y)))
         if tile.doorway is not None and tile.doorway is not 0:
             mapHolder.changeToMap(currentMap.neighbors[int(tile.doorway - 1)])
-            if tile.doorway == 2:
+            if tile.doorway == 1:
                 self.pos.y = mapHolder.getCurrentMap().height - 1
-            elif tile.doorway == 3:
+            elif tile.doorway == 2:
                 self.pos.x = 1
-            elif tile.doorway == 4:
+            elif tile.doorway == 3:
                 self.pos.y = 0
-            elif tile.doorway == 5:
+            elif tile.doorway == 4:
                 self.pos.x = mapHolder.getCurrentMap().width - 2
 
         self.updateAnimation()

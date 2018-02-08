@@ -63,7 +63,7 @@ class Window:
     def clearScreen(self):
         background = pygame.Surface(self.getSize())
         background = background.convert()
-        background.fill((255, 255, 255))
+        background.fill((0, 0, 0))
         self.screen.blit(background, (0, 0))
 
     def drawScreen(self, screenName):

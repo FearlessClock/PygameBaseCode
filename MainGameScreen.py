@@ -21,5 +21,5 @@ class MainGameScreen:
             player.move(event)
 
     def drawScreen(self, surface):
-        self.camera.setVisibleSprites(self.loadedMap)
+        self.camera.setVisibleSprites(self.mapHolder.getCurrentMap())
         self.camera.draw(surface.screen, self.player.sprites()[0])

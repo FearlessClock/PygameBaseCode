@@ -1,6 +1,5 @@
 import os
 
-import Vector
 import pygame
 
 from Cell import Cell
@@ -33,18 +32,21 @@ class Map:
     def getTileAt(self, pos):
         return self.map[pos.y][pos.x]
 
-    def getTilesInRect(self, rect):
+    def getTilesInRect(self, rect, screenTileSize):
         tiles = []
         rectY = max(0, rect.y)
-        rectYMax = min(self.height, rectY + rect.height+1)
+        rectYMax = min(self.height, rectY + rect.height + 1)
+        rectY = rectYMax - 1 - screenTileSize.height
         rectX = max(0, rect.x)
-        rectXMax = min(self.width, rectX + rect.width+1)
+        rectXMax = min(self.width, rectX + rect.width + 1)
+        rectX = rectXMax - 1 - screenTileSize.width
+
+        print(rectY, rectYMax, ":", rectX, rectXMax)
 
         for i in range(rectY, rectYMax):
             for j in range(rectX, rectXMax):
                 tiles.append(self.map[i][j])
         return tiles
-
 
     def setVisibleTiles(self, rect):
         tiles = self.getTilesInRect(rect)
