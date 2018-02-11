@@ -21,7 +21,7 @@ class Player(MobileUnit):
                                           Direction.LEFT: "playerLeft", Direction.RIGHT: "playerRight",
                                           Direction.IDLE_UP: "playerIdleUp", Direction.IDLE_DOWN: "playerIdleDown",
                                           Direction.IDLE_LEFT: "playerIdleLeft", Direction.IDLE_RIGHT: "playerIdleRight"}
-        MobileUnit.__init__(self, x, y, tileLoader, tileSize, tileLoader.getAnimationController("player"),
+        MobileUnit.__init__(self, x, y, tileSize, tileLoader.getAnimationController("player"),
                             self.directionSignificanceDict, self.size)
 
         self.tileSize = tileSize

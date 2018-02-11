@@ -37,7 +37,7 @@ class Camera(pygame.sprite.Group):
         self.screenRect.y = min((self.levelSize.y*self.tileSize.y - self.screenRect.height), self.screenRect.y)
 
 
-    def draw(self, surface, player):
+    def draw(self, surface, player, npcList):
         self.MoveCameraToPlayerLocation(player.rect)
         sprites = self.sprites()
         surface_blit = surface.blit
@@ -46,6 +46,12 @@ class Camera(pygame.sprite.Group):
             rect.x -= self.screenRect.x
             rect.y -= self.screenRect.y
             self.spritedict[spr] = surface_blit(spr.image, rect)
+
+        for npc in npcList:
+            rect = copy.deepcopy(npc.rect)
+            rect.x -= self.screenRect.x
+            rect.y -= self.screenRect.y
+            surface_blit(npc.image, rect)
 
         rect = copy.deepcopy(player.rect)
         rect.x -= self.screenRect.x

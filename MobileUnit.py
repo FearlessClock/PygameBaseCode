@@ -8,7 +8,7 @@ from Vector import Vector
 class MobileUnit(pygame.sprite.Sprite):
     """The base class for the interacting candidates"""
 
-    def __init__(self, x, y, tileLoader, tileSize, animationController, directionSigDict, scale):
+    def __init__(self, x, y, tileSize, animationController, directionSigDict, scale):
         pygame.sprite.Sprite.__init__(self)
         self.pos = Vector(x, y)
         self.scale = scale
@@ -23,7 +23,7 @@ class MobileUnit(pygame.sprite.Sprite):
 
     def setPosition(self, x, y):
         self.pos = Vector(x, y)
-        self.rect = (x*100, y*100, self.image.get_width(), self.image.get_height())
+        self.rect = (x*self.tileSize, y*self.tileSize, self.image.get_width(), self.image.get_height())
 
     def setDirection(self, direction):
         self.direction = direction

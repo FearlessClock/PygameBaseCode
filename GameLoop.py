@@ -24,7 +24,7 @@ class Gameloop:
         self.width = screenSize.x
         self.height = screenSize.y
         self.TILE_SIZE = tileSize
-        self.gameState = GameStates.STARTMENU
+        self.gameState = GameStates.GAME
 
         # Initialise screen
         pygame.font.init()
