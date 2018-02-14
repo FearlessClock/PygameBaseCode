@@ -23,7 +23,7 @@ class Map:
                                                          {0: False, 1: True, 2: False, 3: True, 4: True},
                                                          {1: 0, 2: 0, 3: 0, 4: 0})
         self.tileSize = tileSize
-        self.NPCManager = NPCManager(1, self.tileSize, tileLoader, self)
+        self.NPCManager = NPCManager(100, self.tileSize, tileLoader, self)
 
     def getWidth(self):
         return self.width
