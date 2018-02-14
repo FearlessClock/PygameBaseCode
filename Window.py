@@ -27,6 +27,8 @@ class Window:
 
         self.tileLoader.addSpriteSheet("player", os.path.join('images', 'playerSpriteSheet.png'), Vector(400, 600), Vector(40, 60), 8, 4)
         self.tileLoader.addSpriteSheet("startMenuBackground", os.path.join('images', 'blablaMockup.png'), Vector(640, 540), Vector(500, 500), 1, 1)
+        self.tileLoader.addSpriteSheet("menuBackground", os.path.join('images', 'menuBackground.png'), Vector(347, 399), Vector(300, 310), 1, 1)
+
         self.tileLoader.addSpriteSheet("button", os.path.join('images', 'buttonSpriteSheet.png'), Vector(100, 30), Vector(100, 30), 1, 2)
 
         self.tileLoader.addSpriteSheet("mapTiles", os.path.join('images', "TileSheet.png"), Vector(16,16), Vector(self.TILE_SIZE.x,self.TILE_SIZE.y), 3,3)

@@ -11,6 +11,7 @@ import pygame
 import UserEvents
 from GUI import GUI
 from GameStates import GameStates
+from InGameMenu import InGameMenu
 from MainGameScreen import MainGameScreen
 from MapHolder import MapHolder
 from Player import Player
@@ -24,17 +25,20 @@ class Gameloop:
         self.width = screenSize.x
         self.height = screenSize.y
         self.TILE_SIZE = tileSize
-        self.gameState = GameStates.GAME
+        self.gameState = GameStates.STARTMENU
 
         # Initialise screen
         pygame.font.init()
 
         self.font_renderer = pygame.font.Font(os.path.join("fonts", 'Millennium-Regular_0.ttf'), 24)
         self.window = Window(screenSize, gameName, self.TILE_SIZE, self.font_renderer)
-        self.startMenu = StartUpMenu(self.window.tileLoader)
+        self.startMenu = StartUpMenu(self.window.tileLoader, self.font_renderer)
         self.window.addScreenToRender(self.startMenu, "StartMenu")
 
-        self.GUI = GUI(self.window.tileLoader)
+        self.inGameMenu = InGameMenu(screenSize, self.window.tileLoader, self.font_renderer)
+        self.window.addScreenToRender(self.inGameMenu, "inGameMenu")
+
+        self.GUI = GUI(self.window.tileLoader, self.font_renderer)
         self.window.addScreenToRender(self.GUI, "GUI")
 
         # pygame.mixer.init()
@@ -95,6 +99,9 @@ class Gameloop:
         return True
 
     def MenuState(self):
+        self.inGameMenu.handleInput(self.getInputs())
+        self.window.updateScreen("inGameMenu", self.deltaTime)
+        self.window.drawScreen("inGameMenu")
         return True
 
     def GameState(self):
@@ -107,7 +114,8 @@ class Gameloop:
         return True
 
     def getInputs(self):
-        return pygame.event.get([pygame.KEYDOWN, pygame.KEYUP])
+        events = pygame.event.get([pygame.KEYDOWN, pygame.KEYUP])
+        return events
 
     def handleEvents(self):
         for event in pygame.event.get():
@@ -116,6 +124,11 @@ class Gameloop:
                 return
             elif event.type == UserEvents.STARTGAME:
                 self.changeGameLoopStateToGAME()
+            elif event.type == UserEvents.RESUMEGAME:
+                if self.gameState == GameStates.GAME:
+                    self.changeGameLoopStateToMenu()
+                else:
+                    self.changeGameLoopStateToGAME()
             elif event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                 pygame.event.post(event)
 
@@ -124,7 +137,7 @@ class Gameloop:
         # Game loop
         while pygame.display.get_init():
             self.deltaTime = self.clock.get_time()
-            print(self.deltaTime)
+            print(self.clock.get_fps())
             for stateOfGame in self.stateFunctionDict.keys():
                 if self.gameState == stateOfGame:
                     self.getStateFunctionCallback(self.gameState)()

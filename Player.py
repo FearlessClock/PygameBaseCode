@@ -2,6 +2,7 @@ import copy
 import pygame
 from pygame.locals import *
 
+import UserEvents
 from Direction import Direction
 from MobileUnit import MobileUnit
 from Vector import Vector
@@ -102,6 +103,10 @@ class Player(MobileUnit):
                     self.rightPressed = True
                     # self.direction = Direction.RIGHT
                     self.speedX = self.movementSpeed
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.event.post(pygame.event.Event(UserEvents.RESUMEGAME))
+                else:
+                    pygame.event.post(event)
             elif event.type == KEYUP:
                 if event.key == UP:
                     self.upPressed = False
@@ -131,6 +136,11 @@ class Player(MobileUnit):
                         self.speedX = 0
                     else:
                         self.speedX = -self.movementSpeed
+                else:
+                    pygame.event.post(event)
+
+            else:
+                pygame.event.post(event)
 
         if self.speedY > 0:
             self.direction = Direction.DOWN
