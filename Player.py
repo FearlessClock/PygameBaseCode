@@ -16,7 +16,7 @@ LEFT = pygame.K_LEFT
 class Player(MobileUnit):
     """Structure to store the player information"""
 
-    def __init__(self, x, y, tileLoader, tileSize):
+    def __init__(self, x, y, tileLoader, tileSize, imageCollisionOffset):
         self.size = 0.5
         self.directionSignificanceDict = {Direction.UP: "playerUp", Direction.DOWN: "playerDown",
                                           Direction.LEFT: "playerLeft", Direction.RIGHT: "playerRight",
@@ -24,7 +24,7 @@ class Player(MobileUnit):
                                           Direction.IDLE_LEFT: "playerIdleLeft", Direction.IDLE_RIGHT: "playerIdleRight"}
         MobileUnit.__init__(self, x, y, tileSize, tileLoader.getAnimationController("player"),
                             self.directionSignificanceDict, self.size)
-
+        self.imageCollisionOffset = imageCollisionOffset
         self.tileSize = tileSize
 
         self.speedX = 0
@@ -48,9 +48,12 @@ class Player(MobileUnit):
         newX = self.pos.x + self.speedX * dt / 60 / 5
         newY = self.pos.y + self.speedY * dt / 60 / 5
         currentMap = mapHolder.getCurrentMap()
-        tempRectHolder = copy.deepcopy(self.rect)
-        res = copy.deepcopy(self.rect)
-        self.rect[0] = newX*self.tileSize.x
+        tempRectHolder = Rect(self.rect)
+        res = Rect(self.rect)
+        self.rect[0] = newX*self.tileSize.x+self.imageCollisionOffset.x
+        self.rect[2] -= self.imageCollisionOffset.x*2
+        self.rect[1] += self.imageCollisionOffset.y
+        self.rect[3] -= self.imageCollisionOffset.y*2
         collision = pygame.sprite.spritecollideany(self, currentMap.solidObjectGroup)
 
         if collision is None:
@@ -59,12 +62,15 @@ class Player(MobileUnit):
 
 
         self.rect = tempRectHolder
-        self.rect[1] = newY*self.tileSize.y
+        self.rect[1] = newY*self.tileSize.y+self.imageCollisionOffset.y
+        self.rect[3] -= self.imageCollisionOffset.y*2
+        self.rect[0] += self.imageCollisionOffset.x
+        self.rect[2] -= self.imageCollisionOffset.x*2
         collision = pygame.sprite.spritecollideany(self, currentMap.solidObjectGroup)
 
         if collision is None:
             self.pos.y = newY
-            res[1] = self.rect[1]
+            res[1] = newY*self.tileSize.y
         self.rect = res
 
         # Extremities
@@ -142,6 +148,9 @@ class Player(MobileUnit):
             else:
                 pygame.event.post(event)
 
+        self.getPlayerDirection()
+
+    def getPlayerDirection(self):
         if self.speedY > 0:
             self.direction = Direction.DOWN
         elif self.speedY < 0:

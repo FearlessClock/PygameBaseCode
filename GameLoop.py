@@ -16,6 +16,7 @@ from MainGameScreen import MainGameScreen
 from MapHolder import MapHolder
 from Player import Player
 from StartMenu import StartUpMenu
+from Vector import Vector
 from Window import Window
 
 
@@ -53,7 +54,7 @@ class Gameloop:
         self.addStateFunction(GameStates.MENU, self.MenuState)
 
         # Init the maps
-        self.player = Player(4, 2, self.window.tileLoader, self.TILE_SIZE)
+        self.player = Player(4, 2, self.window.tileLoader, self.TILE_SIZE, Vector(0, 10))
         self.mapHolder = MapHolder(["map1", "map2"], self.TILE_SIZE, self.window.tileLoader)
         self.mainGameScreen = MainGameScreen(self.mapHolder, self.player, screenSize)
         self.window.addScreenToRender(self.mainGameScreen, "MainGame")
@@ -137,7 +138,7 @@ class Gameloop:
         # Game loop
         while pygame.display.get_init():
             self.deltaTime = self.clock.get_time()
-            print(self.clock.get_fps())
+            #print(self.clock.get_fps())
             for stateOfGame in self.stateFunctionDict.keys():
                 if self.gameState == stateOfGame:
                     self.getStateFunctionCallback(self.gameState)()

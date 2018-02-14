@@ -45,5 +45,8 @@ class AnimationController:
     def changeCurrentAnimationTo(self, nextAnimation):
         # if self.currentAnimation is not None:
         #     self.animationStrips.get(self.currentAnimation).resetAnimation()
-        self.currentAnimation = nextAnimation
-        self.loadedAnimation = self.animationStrips.get(self.currentAnimation)
+        if nextAnimation is not None:
+            self.currentAnimation = nextAnimation
+            animation = self.animationStrips.get(self.currentAnimation)
+            if animation is not None:
+                self.loadedAnimation = animation

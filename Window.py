@@ -34,9 +34,11 @@ class Window:
         self.tileLoader.addSpriteSheet("mapTiles", os.path.join('images', "TileSheet.png"), Vector(16,16), Vector(self.TILE_SIZE.x,self.TILE_SIZE.y), 3,3)
         self.tileLoader.addSpriteSheet("healthBars", os.path.join('images', 'healthBarSpriteSheet.png'), Vector(200, 50), Vector(200, 50), 1, 5)
 
-        self.tileLoader.addSpriteSheet("NPC", os.path.join("images", "NPCDownWalk.png"), Vector(18,18), Vector(36,36), 1, 4)
+        self.tileLoader.addSpriteSheet("NPC", os.path.join("images", "NPC.png"), Vector(32,32), Vector(36,36), 3, 4)
 
         NPCAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 0), "NPCDown", 200)
+        NPCAnimationLeft = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 1), "NPCLeft", 200)
+        NPCAnimationRight = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 2), "NPCRight", 200)
 
         playerAnimationUp = AnimationStrip(self.tileLoader.getImageStripByName("player", 1), "playerUp", 200)
         playerAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("player", 0), "playerDown", 200)
@@ -53,6 +55,8 @@ class Window:
 
         animationController = AnimationController()
         animationController.addAnimations(NPCAnimationDown)
+        animationController.addAnimations(NPCAnimationLeft)
+        animationController.addAnimations(NPCAnimationRight)
         self.tileLoader.addAnimation("NPC", animationController)
         self.tileLoader.setAnimationForNameToName("player", "playerRight")
         # self.mapHolder = MapHolder(TILE_SIZE, self.tileLoader)

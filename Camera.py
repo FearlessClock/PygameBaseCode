@@ -1,5 +1,3 @@
-import copy
-
 import pygame
 from pygame.rect import Rect
 
@@ -14,11 +12,11 @@ class Camera(pygame.sprite.Group):
         self.nmbrOfTilesOnScreen = nmbrOfTilesOnScreen
         self.screenRect = Rect(0, 0, screenSize.x, screenSize.y)
         self.tileRect = Rect(0, 0, nmbrOfTilesOnScreen.x, nmbrOfTilesOnScreen.y)
-        self.levelSize = Vector(0,0)
+        self.levelSize = Vector(0, 0)
 
     def setPosition(self, x, y):
-        x = x - self.tileRect.x-self.tileRect.width/2
-        y = y - self.tileRect.y-self.tileRect.height/2
+        x = x - self.tileRect.x - self.tileRect.width / 2
+        y = y - self.tileRect.y - self.tileRect.height / 2
 
         # print(self.tileRect.x, self.levelSize.x - self.tileRect.width/2)
         self.tileRect = self.tileRect.move(x, y)
@@ -28,14 +26,12 @@ class Camera(pygame.sprite.Group):
         self.levelSize = Vector(level.width, level.height)
         self.empty()
         self.add(tiles)
-        #print(len(self.sprites()))
 
     def MoveCameraToPlayerLocation(self, player):
-        self.screenRect.x = max(player.x - self.screenRect.width/2, 0)
-        self.screenRect.x = min((self.levelSize.x*self.tileSize.x - self.screenRect.width), self.screenRect.x)
-        self.screenRect.y = max(player.y - self.screenRect.height/2, 0)
-        self.screenRect.y = min((self.levelSize.y*self.tileSize.y - self.screenRect.height), self.screenRect.y)
-
+        self.screenRect.x = max(player.x - self.screenRect.width / 2, 0)
+        self.screenRect.x = min((self.levelSize.x * self.tileSize.x - self.screenRect.width), self.screenRect.x)
+        self.screenRect.y = max(player.y - self.screenRect.height / 2, 0)
+        self.screenRect.y = min((self.levelSize.y * self.tileSize.y - self.screenRect.height), self.screenRect.y)
 
     def draw(self, surface, player, npcList):
         self.MoveCameraToPlayerLocation(player.rect)
@@ -49,7 +45,7 @@ class Camera(pygame.sprite.Group):
             rect = Rect(npc.rect.x - self.screenRect.x, npc.rect.y - self.screenRect.y, 0, 0)
             surface_blit(npc.image, rect)
 
-        rect = copy.deepcopy(player.rect)
+        rect = Rect(player.rect)
         rect.x -= self.screenRect.x
         rect.y -= self.screenRect.y
         surface_blit(player.image, rect)
