@@ -12,7 +12,7 @@ class MainGameScreen:
 
     def updateScreen(self, dt):
         self.player.update(dt, self.mapHolder)
-        self.mapHolder.getCurrentMap().NPCManager.update(dt, self.mapHolder.getCurrentMap())
+        self.mapHolder.getCurrentMap().NPCManager.update(dt, self.mapHolder.getCurrentMap(), self.player.sprites()[0])
         self.camera.setPosition(int(self.player.sprites()[0].pos.x),
                                 int(self.player.sprites()[0].pos.y))
 

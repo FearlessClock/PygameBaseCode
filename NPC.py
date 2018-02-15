@@ -17,11 +17,17 @@ class NPC(MobileUnit):
         self.target = None
         self.speed = Vector(0, 0)
 
-    def updateNPC(self, dt, level):
+    def updateNPC(self, dt, level, player):
         if self.target is None:
             self.target = self.getNewTarget(level)
 
         direction = self.target - self.pos
+        oppPlayer = self.pos - player.pos
+        oppPlayerMag = oppPlayer.magnitude()
+        if(oppPlayerMag < 2):
+            oppPlayer.x *= 4-oppPlayerMag
+            oppPlayer.y *= 4-oppPlayerMag
+            direction = direction + oppPlayer
         direction.x = direction.x*(dt/1000)
         direction.y = direction.y*(dt/1000)
 

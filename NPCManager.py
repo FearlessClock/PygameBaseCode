@@ -18,9 +18,9 @@ class NPCManager:
 
             self.npcHolder.add(self.npcFactory.createNPC(NPCType.FLY, x, y, "NPC", randrange(1, 2)))
 
-    def update(self, dt, level):
+    def update(self, dt, level, player):
         for npc in self.npcHolder:
-            npc.updateNPC(dt, level)
+            npc.updateNPC(dt, level, player)
 
     def getNPCs(self):
         return self.npcHolder.sprites()

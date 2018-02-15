@@ -1,5 +1,7 @@
 from cmath import sqrt
 
+import math
+
 
 class Vector:
     def __init__(self, x, y):
@@ -18,8 +20,11 @@ class Vector:
     def __sub__(self, other):
         return Vector(self.x-other.x, self.y-other.y)
 
+    def magnitude(self):
+        return math.sqrt(pow(self.x, 2) + pow(self.y, 2))
+
     def normalize(self):
-        magnitude = sqrt(pow(self.x, 2) + pow(self.y, 2))
+        magnitude = self.magnitude()
         if magnitude != 0:
             self.x = self.x/magnitude
             self.y = self.y/magnitude
