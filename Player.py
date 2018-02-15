@@ -27,6 +27,8 @@ class Player(MobileUnit):
         self.imageCollisionOffset = imageCollisionOffset
         self.tileSize = tileSize
 
+        self.speed = 1.5
+
         self.speedX = 0
         self.speedY = 0
 
@@ -45,8 +47,8 @@ class Player(MobileUnit):
 
     def update(self, dt, mapHolder):
         # pos.x/y are in "world units"
-        newX = self.pos.x + self.speedX * dt / 60 / 5
-        newY = self.pos.y + self.speedY * dt / 60 / 5
+        newX = self.pos.x + self.speedX * dt / 60 / 5 * self.speed
+        newY = self.pos.y + self.speedY * dt / 60 / 5 * self.speed
         currentMap = mapHolder.getCurrentMap()
         tempRectHolder = Rect(self.rect)
         res = Rect(self.rect)
