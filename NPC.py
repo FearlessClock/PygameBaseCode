@@ -16,18 +16,21 @@ class NPC(MobileUnit):
         MobileUnit.__init__(self, x, y, tileSize, animationController, self.directionSignificanceDict, scale)
         self.target = None
         self.speed = Vector(0, 0)
+        self.closeness = 2
 
     def updateNPC(self, dt, level, player):
         if self.target is None:
             self.target = self.getNewTarget(level)
-
         direction = self.target - self.pos
         oppPlayer = self.pos - player.pos
         oppPlayerMag = oppPlayer.magnitude()
-        if(oppPlayerMag < 2):
-            oppPlayer.x *= 4-oppPlayerMag
-            oppPlayer.y *= 4-oppPlayerMag
+
+        if(oppPlayerMag < self.closeness):
+            self.target = None
+            oppPlayer.x *= self.closeness*2-oppPlayerMag
+            oppPlayer.y *= self.closeness*2-oppPlayerMag
             direction = direction + oppPlayer
+
         direction.x = direction.x*(dt/1000)
         direction.y = direction.y*(dt/1000)
 
@@ -42,7 +45,7 @@ class NPC(MobileUnit):
         else:
             self.pos = self.pos + direction
             self.speed = direction
-            if abs(self.pos.x - self.target.x) < 1 and abs(self.pos.y - self.target.y) < 1:
+            if self.target is not None and abs(self.pos.x - self.target.x) < 1 and abs(self.pos.y - self.target.y) < 1:
                 self.target = None
             self.getNPCDirection()
             self.updateNPCAnimation(dt)
@@ -63,8 +66,8 @@ class NPC(MobileUnit):
 
         if y > 0:
             self.direction = Direction.DOWN
-        # elif y < 0:
-        #     self.direction = Direction.UP
+        elif y < 0:
+            self.direction = Direction.UP
         if x > 0:
             self.direction = Direction.RIGHT
         if x < 0:

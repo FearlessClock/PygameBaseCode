@@ -11,7 +11,10 @@ class UIElement(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.id = id
-        self.image = pygame.transform.scale(image, (width, height))
+        if image is not None:
+            self.image = pygame.transform.scale(image, (width, height))
+        else:
+            self.image = None
         self.isAnimation = False
         self.animationController = None
         self.rect = Rect(x, y, width, height)
@@ -21,7 +24,8 @@ class UIElement(pygame.sprite.Sprite):
         self.animationController = controller
 
     def draw(self, window):
-        window.screen.blit(self.image, (self.x, self.y))
+        if self.image is not None:
+            window.screen.blit(self.image, (self.x, self.y))
 
     def changeImage(self, newImage):
         self.image = newImage

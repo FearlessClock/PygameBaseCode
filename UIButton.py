@@ -20,7 +20,8 @@ class UIButton(UIElement):
             self.image = self.imageNotSelected
 
     def draw(self, window):
-        window.screen.blit(self.image, (self.x, self.y))
+        if self.image is not None:
+            window.screen.blit(self.image, (self.x, self.y))
         textSize = self.fontRenderer.size(self.text)
         window.screen.blit(self.fontRenderer.render(self.text, False, (0,0,0)), (self.x+self.width/2-textSize[0]
                                                                                  /2, self.y))
