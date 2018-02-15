@@ -70,8 +70,9 @@ class NPC(MobileUnit):
             self.direction = Direction.UP
         if x > 0:
             self.direction = Direction.RIGHT
-        if x < 0:
+        elif x < 0:
             self.direction = Direction.LEFT
+
         if x == 0 and y == 0:
             if self.direction == Direction.UP:
                 self.direction = Direction.IDLE_UP
