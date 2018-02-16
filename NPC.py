@@ -23,7 +23,7 @@ class NPC(MobileUnit):
             self.target = self.getNewTarget(level)
         direction = self.target - self.pos
         oppPlayer = self.pos - player.pos
-        oppPlayerMag = oppPlayer.magnitude()
+        oppPlayerMag = oppPlayer.length()
 
         if(oppPlayerMag < self.closeness):
             self.target = None

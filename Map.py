@@ -32,7 +32,7 @@ class Map:
         return self.height
 
     def getTileAt(self, pos):
-        return self.map[pos.y][pos.x]
+        return self.map[pos.iy()][pos.ix()]
 
     def getTilesInRect(self, rect, screenTileSize):
         tiles = []

@@ -9,8 +9,8 @@ from Vector import Vector
 
 class Window:
     def __init__(self, windowSize, caption, TILE_SIZE, font_renderer):
-        self.width = windowSize.x
-        self.height = windowSize.y
+        self.width = windowSize.ix()
+        self.height = windowSize.iy()
 
         pygame.init()
         self.screen = pygame.display.set_mode([self.width, self.height])

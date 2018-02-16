@@ -1,8 +1,6 @@
 import pygame
 from pygame.rect import Rect
 
-from Vector import Vector
-
 
 class Camera(pygame.sprite.Group):
     # Position of the camera is the top left corner
@@ -12,7 +10,7 @@ class Camera(pygame.sprite.Group):
         self.nmbrOfTilesOnScreen = nmbrOfTilesOnScreen
         self.screenRect = Rect(0, 0, screenSize.x, screenSize.y)
         self.tileRect = Rect(0, 0, nmbrOfTilesOnScreen.x, nmbrOfTilesOnScreen.y)
-        self.levelSize = Vector(0, 0)
+        self.levelSize = pygame.math.Vector2(0, 0)
 
     def setPosition(self, x, y):
         x = x - self.tileRect.x - self.tileRect.width / 2
@@ -23,7 +21,7 @@ class Camera(pygame.sprite.Group):
 
     def setVisibleSprites(self, level):
         tiles = level.getTilesInRect(self.tileRect, self.tileRect)
-        self.levelSize = Vector(level.width, level.height)
+        self.levelSize = pygame.math.Vector2(level.width, level.height)
         self.empty()
         self.add(tiles)
 

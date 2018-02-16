@@ -1,8 +1,5 @@
 import pygame as pygame
 
-from Vector import Vector
-
-
 class Cell(pygame.sprite.Sprite):
     def __init__(self, i, j, solid, image, doorway=None):
         # Call the parent class (Sprite) constructor
