@@ -9,7 +9,6 @@ import os
 import pygame
 
 import UserEvents
-from GUI import GUI
 from GameStates import GameStates
 from InGameMenu import InGameMenu
 from MainGameScreen import MainGameScreen
@@ -23,6 +22,7 @@ from Window import Window
 # Class with all the game loop functions and information
 class Gameloop:
     def __init__(self, gameName, screenSize, tileSize):
+
         self.width = screenSize.x
         self.height = screenSize.y
         self.TILE_SIZE = tileSize
@@ -33,14 +33,6 @@ class Gameloop:
 
         self.font_renderer = pygame.font.Font(os.path.join("fonts", 'Millennium-Regular_0.ttf'), 24)
         self.window = Window(screenSize, gameName, self.TILE_SIZE, self.font_renderer)
-        self.startMenu = StartUpMenu(self.window.tileLoader, self.font_renderer)
-        self.window.addScreenToRender(self.startMenu, "StartMenu")
-
-        self.inGameMenu = InGameMenu(screenSize, self.window.tileLoader, self.font_renderer)
-        self.window.addScreenToRender(self.inGameMenu, "inGameMenu")
-
-        self.GUI = GUI(self.window.tileLoader, self.font_renderer)
-        self.window.addScreenToRender(self.GUI, "GUI")
 
         # pygame.mixer.init()
 
@@ -53,21 +45,23 @@ class Gameloop:
         self.addStateFunction(GameStates.GAME, self.GameState)
         self.addStateFunction(GameStates.MENU, self.MenuState)
 
-        # Init the maps
         self.player = Player(4, 2, self.window.tileLoader, self.TILE_SIZE, Vector(0, 10))
-        self.mapHolder = MapHolder(["map1", "map2"], self.TILE_SIZE, self.window.tileLoader)
-        self.mainGameScreen = MainGameScreen(self.mapHolder, self.player, screenSize)
-        self.window.addScreenToRender(self.mainGameScreen, "MainGame")
-        # Init the player
-        #
 
-        # window.drawScreen(mapHolder, player, NPCManagerIns)
+        # Init the maps
+        self.mapHolder = MapHolder(["map1", "map2"], self.TILE_SIZE, self.window.tileLoader)
+
+        # Init the different screens and add them to the renderer
+        self.startMenu = StartUpMenu(self.window.tileLoader, self.font_renderer)
+        self.window.addScreenToRender(self.startMenu, "StartMenu")
+
+        self.inGameMenu = InGameMenu(screenSize, self.window.tileLoader, self.font_renderer)
+        self.window.addScreenToRender(self.inGameMenu, "inGameMenu")
+
+        self.mainGameScreen = MainGameScreen(self.mapHolder, self.window.tileLoader, self.player, screenSize, self.font_renderer)
+        self.window.addScreenToRender(self.mainGameScreen, "MainGame")
+
         self.clock = pygame.time.Clock()
         self.deltaTime = 0
-
-        # pygame.mixer.init()
-        # ~ default_font = pygame.font.get_default_font()
-        self.window.drawScreen("StartMenu")
 
     def addStateFunction(self, state, function):
         self.stateFunctionDict.update({state: function})
@@ -110,8 +104,6 @@ class Gameloop:
         self.window.getScreen("MainGame").movePlayer(self.getInputs())
         self.window.updateScreen("MainGame", self.deltaTime)
         self.window.drawScreen("MainGame")
-        self.window.updateScreen("GUI", self.deltaTime)
-        self.window.drawScreen("GUI")
         return True
 
     def getInputs(self):
@@ -138,7 +130,7 @@ class Gameloop:
         # Game loop
         while pygame.display.get_init():
             self.deltaTime = self.clock.get_time()
-            #print(self.clock.get_fps())
+            # print(self.clock.get_fps())
             for stateOfGame in self.stateFunctionDict.keys():
                 if self.gameState == stateOfGame:
                     self.getStateFunctionCallback(self.gameState)()

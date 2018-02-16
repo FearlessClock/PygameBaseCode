@@ -5,6 +5,7 @@ from pygame.locals import *
 import UserEvents
 from Direction import Direction
 from MobileUnit import MobileUnit
+from NetWeapon import Net
 from Vector import Vector
 
 UP = pygame.K_UP
@@ -44,6 +45,11 @@ class Player(MobileUnit):
         self.downPressed = False
         self.leftPressed = False
         self.rightPressed = False
+
+        self.net = Net(self.tileLoader.getAnimationController("netAnimation"), self.tileSize)
+        self.attack = False
+
+        self.score = 0
 
     def update(self, dt, mapHolder):
         # pos.x/y are in "world units"
@@ -89,6 +95,11 @@ class Player(MobileUnit):
                 self.pos.x = mapHolder.getCurrentMap().width - 2
 
         self.updateAnimation()
+        if self.attack:
+            self.net.spawnWeapon(self.direction, self.pos)
+            collision = pygame.sprite.spritecollide(self.net, currentMap.NPCManager.npcHolder, True)
+            self.score += len(collision)
+        self.net.updateAnimation(dt)
         self.image = self.currentAnimationFrame()
         self.stepCurrentAnimation(dt)
 
@@ -111,6 +122,12 @@ class Player(MobileUnit):
                     self.rightPressed = True
                     # self.direction = Direction.RIGHT
                     self.speedX = self.movementSpeed
+                elif event.key == K_SPACE:
+                    # Create sprite and spawn in world.
+                    # Check for collisions with flies
+                    # Remove flies from game
+                    self.attack = True
+                    self.net.spawnWeapon(self.direction, self.pos)
                 elif event.key == pygame.K_ESCAPE:
                     pygame.event.post(pygame.event.Event(UserEvents.RESUMEGAME))
                 else:
@@ -144,6 +161,9 @@ class Player(MobileUnit):
                         self.speedX = 0
                     else:
                         self.speedX = -self.movementSpeed
+                elif event.key == K_SPACE:
+                    self.attack = False
+                    self.net.despawn()
                 else:
                     pygame.event.post(event)
 

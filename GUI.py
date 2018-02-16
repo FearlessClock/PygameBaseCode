@@ -13,4 +13,4 @@ class GUI(InteractiveScreen):
 
     def setScore(self, score):
         self.score = score
-        self.getVisuelElementById(1).setText("Score: " + self.score)
+        self.getVisuelElementById(1).setText("Score: " + str(self.score))

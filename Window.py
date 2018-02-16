@@ -1,6 +1,7 @@
 import os
 import pygame
 
+from Direction import Direction
 from AnimationController import AnimationStrip, AnimationController
 from TileLoader import TileLoader
 from Vector import Vector
@@ -36,6 +37,8 @@ class Window:
 
         self.tileLoader.addSpriteSheet("NPC", os.path.join("images", "NPC.png"), Vector(32,32), Vector(36,36), 3, 4)
 
+        self.tileLoader.addSpriteSheet("netAnimation", os.path.join("images", "netAnimation.png"), Vector(32, 32), self.TILE_SIZE, 4, 8)
+
         NPCAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 0), "NPCDown", 200)
         NPCAnimationLeft = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 1), "NPCLeft", 200)
         NPCAnimationRight = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 2), "NPCRight", 200)
@@ -49,6 +52,12 @@ class Window:
         playerAnimationIdleLeft = AnimationStrip(self.tileLoader.getImageStripByName("player", 6), "playerIdleLeft", 200)
         playerAnimationIdleRight = AnimationStrip(self.tileLoader.getImageStripByName("player", 7), "playerIdleRight", 200)
 
+        netAnimationUp = AnimationStrip(self.tileLoader.getImageStripByName("netAnimation", 1), Direction.UP, 50)
+        netAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("netAnimation", 0), Direction.DOWN, 50)
+        netAnimationLeft = AnimationStrip(self.tileLoader.getImageStripByName("netAnimation", 3), Direction.LEFT, 50)
+        netAnimationRight = AnimationStrip(self.tileLoader.getImageStripByName("netAnimation", 2), Direction.RIGHT, 50)
+
+
         animationController = AnimationController()
         animationController.addAnimations(playerAnimationUp, playerAnimationDown, playerAnimationLeft, playerAnimationRight, playerAnimationIdleUp, playerAnimationIdleDown, playerAnimationIdleLeft, playerAnimationIdleRight)
         self.tileLoader.addAnimation("player", animationController)
@@ -58,6 +67,11 @@ class Window:
         animationController.addAnimations(NPCAnimationLeft)
         animationController.addAnimations(NPCAnimationRight)
         self.tileLoader.addAnimation("NPC", animationController)
+
+        animationController = AnimationController()
+        animationController.addAnimations(netAnimationUp, netAnimationDown, netAnimationLeft, netAnimationRight)
+        self.tileLoader.addAnimation("netAnimation", animationController)
+
         self.tileLoader.setAnimationForNameToName("player", "playerRight")
         # self.mapHolder = MapHolder(TILE_SIZE, self.tileLoader)
 
