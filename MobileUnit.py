@@ -8,8 +8,9 @@ from Vector import Vector
 class MobileUnit(pygame.sprite.Sprite):
     """The base class for the interacting candidates"""
 
-    def __init__(self, x, y, tileSize, animationController, directionSigDict, scale):
+    def __init__(self, id, x, y, tileSize, animationController, directionSigDict, scale):
         pygame.sprite.Sprite.__init__(self)
+        self.id = id
         self.pos = Vector(x, y)
         self.scale = scale
         self.tileSize = tileSize

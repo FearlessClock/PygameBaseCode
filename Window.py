@@ -36,12 +36,18 @@ class Window:
         self.tileLoader.addSpriteSheet("healthBars", os.path.join('images', 'healthBarSpriteSheet.png'), Vector(200, 50), Vector(200, 50), 1, 5)
 
         self.tileLoader.addSpriteSheet("NPC", os.path.join("images", "NPC.png"), Vector(32,32), Vector(36,36), 3, 4)
+        self.tileLoader.addSpriteSheet("CRICKET", os.path.join("images", "CRICKET.png"), Vector(32,32), Vector(36,36), 3, 4)
+
 
         self.tileLoader.addSpriteSheet("netAnimation", os.path.join("images", "netAnimation.png"), Vector(32, 32), self.TILE_SIZE, 4, 8)
 
         NPCAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 0), "NPCDown", 200)
         NPCAnimationLeft = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 1), "NPCLeft", 200)
         NPCAnimationRight = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 2), "NPCRight", 200)
+
+        CRICKETAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("CRICKET", 0), "NPCDown", 200)
+        CRICKETAnimationLeft = AnimationStrip(self.tileLoader.getImageStripByName("CRICKET", 1), "NPCLeft", 200)
+        CRICKETAnimationRight = AnimationStrip(self.tileLoader.getImageStripByName("CRICKET", 2), "NPCRight", 200)
 
         playerAnimationUp = AnimationStrip(self.tileLoader.getImageStripByName("player", 1), "playerUp", 200)
         playerAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("player", 0), "playerDown", 200)
@@ -67,6 +73,12 @@ class Window:
         animationController.addAnimations(NPCAnimationLeft)
         animationController.addAnimations(NPCAnimationRight)
         self.tileLoader.addAnimation("NPC", animationController)
+
+        animationController = AnimationController()
+        animationController.addAnimations(CRICKETAnimationDown)
+        animationController.addAnimations(CRICKETAnimationLeft)
+        animationController.addAnimations(CRICKETAnimationRight)
+        self.tileLoader.addAnimation("CRICKET", animationController)
 
         animationController = AnimationController()
         animationController.addAnimations(netAnimationUp, netAnimationDown, netAnimationLeft, netAnimationRight)

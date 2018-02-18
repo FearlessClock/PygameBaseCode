@@ -17,6 +17,7 @@ class InGameMenu(InteractiveScreen):
         self.addInteractiveElement(UIButton(0, 100, 30, screenSize.x / 2 - 50, screenSize.y / 2 - 60,
                                             tileLoader.getImageByName("button", 0, 1),
                                             tileLoader.getImageByName("button", 0, 0), self.quitGame, "Quit", fontRenderer))
+        self.getInteractiveElementByIndex(0).setSelected(True)
         self.resumeGame = False
         self.quitGame = False
 

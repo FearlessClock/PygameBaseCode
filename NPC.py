@@ -10,15 +10,15 @@ from Vector import Vector
 
 
 class NPC(MobileUnit):
-    def __init__(self, x, y, tileSize, animationController, scale):
+    def __init__(self, id, x, y, tileSize, animationController, scale):
         self.directionSignificanceDict = {Direction.DOWN: "NPCDown", Direction.LEFT: "NPCLeft", Direction.RIGHT: "NPCRight"}
 
-        MobileUnit.__init__(self, x, y, tileSize, animationController, self.directionSignificanceDict, scale)
+        MobileUnit.__init__(self, id, x, y, tileSize, animationController, self.directionSignificanceDict, scale)
         self.target = None
         self.speed = Vector(0, 0)
         self.closeness = 2
 
-    def updateNPC(self, dt, level, player):
+    def updateNPC(self, dt, level, player, enemies):
         if self.target is None:
             self.target = self.getNewTarget(level)
         direction = self.target - self.pos
