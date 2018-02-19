@@ -10,7 +10,7 @@ class MapHolder:
         self.loadedMap = None
         mapValues = []
         idValues = []
-        self.currentMap = 1
+        self.currentMap = 3
         self.tileSize = tileSize
         for i in range(len(self.mapNames)):
             map = Map(self.mapNames[i], self.tileSize, tileLoader)

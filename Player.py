@@ -1,4 +1,3 @@
-import copy
 import pygame
 from pygame.locals import *
 
@@ -22,7 +21,8 @@ class Player(MobileUnit):
         self.directionSignificanceDict = {Direction.UP: "playerUp", Direction.DOWN: "playerDown",
                                           Direction.LEFT: "playerLeft", Direction.RIGHT: "playerRight",
                                           Direction.IDLE_UP: "playerIdleUp", Direction.IDLE_DOWN: "playerIdleDown",
-                                          Direction.IDLE_LEFT: "playerIdleLeft", Direction.IDLE_RIGHT: "playerIdleRight"}
+                                          Direction.IDLE_LEFT: "playerIdleLeft",
+                                          Direction.IDLE_RIGHT: "playerIdleRight"}
         MobileUnit.__init__(self, 0, x, y, tileSize, tileLoader.getAnimationController("player"),
                             self.directionSignificanceDict, self.size)
         self.imageCollisionOffset = imageCollisionOffset
@@ -58,27 +58,26 @@ class Player(MobileUnit):
         currentMap = mapHolder.getCurrentMap()
         tempRectHolder = Rect(self.rect)
         res = Rect(self.rect)
-        self.rect[0] = newX*self.tileSize.x+self.imageCollisionOffset.x
-        self.rect[2] -= self.imageCollisionOffset.x*2
+        self.rect[0] = newX * self.tileSize.x + self.imageCollisionOffset.x
+        self.rect[2] -= self.imageCollisionOffset.x * 2
         self.rect[1] += self.imageCollisionOffset.y
-        self.rect[3] -= self.imageCollisionOffset.y*2
+        self.rect[3] -= self.imageCollisionOffset.y * 2
         collision = pygame.sprite.spritecollideany(self, currentMap.solidObjectGroup)
 
         if collision is None:
             self.pos.x = newX
             res[0] = self.rect[0]
 
-
         self.rect = tempRectHolder
-        self.rect[1] = newY*self.tileSize.y+self.imageCollisionOffset.y
-        self.rect[3] -= self.imageCollisionOffset.y*2
+        self.rect[1] = newY * self.tileSize.y + self.imageCollisionOffset.y
+        self.rect[3] -= self.imageCollisionOffset.y * 2
         self.rect[0] += self.imageCollisionOffset.x
-        self.rect[2] -= self.imageCollisionOffset.x*2
+        self.rect[2] -= self.imageCollisionOffset.x * 2
         collision = pygame.sprite.spritecollideany(self, currentMap.solidObjectGroup)
 
         if collision is None:
             self.pos.y = newY
-            res[1] = newY*self.tileSize.y
+            res[1] = newY * self.tileSize.y
         self.rect = res
 
         # Extremities
@@ -86,14 +85,39 @@ class Player(MobileUnit):
         if tile.doorway is not None and tile.doorway is not 0:
             mapHolder.changeToMap(currentMap.neighbors[int(tile.doorway - 1)])
             if tile.doorway == 1:
-                self.pos.y = mapHolder.getCurrentMap().height - 1
+                self.pos.y = (mapHolder.getCurrentMap().height - 2)
+                if self.pos.x > mapHolder.getCurrentMap().width:
+                    empty = self.getFirstEmptyFromMax(mapHolder.getCurrentMap(), False, self.pos.x, self.pos.y)
+                    if empty is not None:
+                        self.pos.x = empty
+                    else:
+                        self.pos.x = 2
             elif tile.doorway == 2:
                 self.pos.x = 1
+                if self.pos.y > mapHolder.getCurrentMap().height:
+                    empty = self.getFirstEmptyFromMax(mapHolder.getCurrentMap(), True, self.pos.x, self.pos.y)
+                    if empty is not None:
+                        self.pos.y = empty
+                    else:
+                        self.pos.y = 0
             elif tile.doorway == 3:
-                self.pos.y = 0
+                self.pos.y = 1
+                if self.pos.x > mapHolder.getCurrentMap().width:
+                    empty = self.getFirstEmptyFromMax(mapHolder.getCurrentMap(), False, self.pos.x, self.pos.y)
+                    if empty is not None:
+                        self.pos.x = empty
+                    else:
+                        self.pos.x = 2
             elif tile.doorway == 4:
                 self.pos.x = mapHolder.getCurrentMap().width - 2
+                if self.pos.y > mapHolder.getCurrentMap().height:
+                    empty = self.getFirstEmptyFromMax(mapHolder.getCurrentMap(), True, self.pos.x, self.pos.y)
+                    if empty is not None:
+                        self.pos.y = empty
+                    else:
+                        self.pos.y = 0
 
+        print(self.pos)
         self.updateAnimation()
         if self.attack:
             self.net.spawnWeapon(self.direction, self.pos)
@@ -199,3 +223,16 @@ class Player(MobileUnit):
         self.downPressed = False
         self.leftPressed = False
         self.rightPressed = False
+
+    def getFirstEmptyFromMax(self, level, vertical, x, y):
+        xMax = level.width - 1
+        yMax = level.height - 1
+        if vertical:
+            for i in range(level.height - 1):
+                if not level.isObstacle(x-1, yMax - i):
+                    return yMax - i
+        else:
+            for i in range(level.width - 1):
+                if not level.isObstacle(xMax - i, y-1):
+                    return xMax - i
+        return None

@@ -19,6 +19,8 @@ class Net(pygame.sprite.Sprite):
 
     def spawnWeapon(self, direction, position):
         offset = 0.4
+        self.image = self.animationController.getCurrentAnimationFrame()
+
         if direction == Direction.UP or direction == Direction.IDLE_UP:
             self.hitPos = position + Vector(0, -offset)
             if self.netDirection is not Direction.UP:
@@ -44,16 +46,19 @@ class Net(pygame.sprite.Sprite):
                 self.animationController.changeCurrentAnimationTo(Direction.RIGHT)
 
     def despawn(self):
+        self.image = None
         self.hitPos = Vector(-1, -1)
         self.rect.x = -1
         self.rect.y = -1
 
     def updateAnimation(self, dt):
-        self.animationController.stepCurrentAnimation(dt)
-        self.image = self.animationController.getCurrentAnimationFrame()
+        if self.image is not None:
+            self.animationController.stepCurrentAnimation(dt)
+            self.image = self.animationController.getCurrentAnimationFrame()
 
     def draw(self, surface_blit, screenRect):
-        self.pos = self.hitPos
-        self.rect.x = self.hitPos.x * self.tileSize.x
-        self.rect.y = self.hitPos.y * self.tileSize.y
-        surface_blit(self.image, (self.pos.x*self.tileSize.x-screenRect.x, self.pos.y*self.tileSize.y-screenRect.y))
+        if self.image is not None:
+            self.pos = self.hitPos
+            self.rect.x = self.hitPos.x * self.tileSize.x
+            self.rect.y = self.hitPos.y * self.tileSize.y
+            surface_blit(self.image, (self.pos.x*self.tileSize.x-screenRect.x, self.pos.y*self.tileSize.y-screenRect.y))

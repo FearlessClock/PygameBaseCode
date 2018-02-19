@@ -45,10 +45,10 @@ class Gameloop:
         self.addStateFunction(GameStates.GAME, self.GameState)
         self.addStateFunction(GameStates.MENU, self.MenuState)
 
-        self.player = Player(4, 2, self.window.tileLoader, self.TILE_SIZE, Vector(0, 10))
+        self.player = Player(2, 1, self.window.tileLoader, self.TILE_SIZE, Vector(0, 10))
 
         # Init the maps
-        self.mapHolder = MapHolder(["map1", "map2"], self.TILE_SIZE, self.window.tileLoader)
+        self.mapHolder = MapHolder(["map1", "map2", "map3"], self.TILE_SIZE, self.window.tileLoader)
 
         # Init the different screens and add them to the renderer
         self.startMenu = StartUpMenu(self.window.tileLoader, self.font_renderer)

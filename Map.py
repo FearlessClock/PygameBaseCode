@@ -23,7 +23,7 @@ class Map:
                                                          {0: False, 1: True, 2: False, 3: True, 4: True},
                                                          {1: 0, 2: 0, 3: 0, 4: 0})
         self.tileSize = tileSize
-        self.NPCManager = NPCManager(100, self.tileSize, tileLoader, self)
+        self.NPCManager = NPCManager(1, self.tileSize, tileLoader, self)
 
     def getWidth(self):
         return self.width
@@ -38,11 +38,12 @@ class Map:
         tiles = []
         rectY = max(0, rect.y - 1)
         rectYMax = min(self.height, rectY + rect.height + 3)
-        rectY = rectYMax - 3 - screenTileSize.height
+        rectY = max(0, rectYMax - 3 - screenTileSize.height)
+
 
         rectX = max(0, rect.x - 1)
         rectXMax = min(self.width, rectX + rect.width + 3)
-        rectX = rectXMax - 3 - screenTileSize.width
+        rectX = max(0, rectXMax - 3 - screenTileSize.width)
 
         for i in range(rectY, rectYMax):
             for j in range(rectX, rectXMax):

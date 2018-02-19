@@ -59,6 +59,18 @@ class Cricket(MobileUnit):
         else:
             self.pos.x = self.rect.x / self.tileSize.x
             self.pos.y = self.rect.y / self.tileSize.y
+            if self.pos.x < 0:
+                self.pos.x = 0
+                self.rect.x = 0
+            elif self.pos.x >= level.width-1:
+                self.pos.x = level.width-1
+                self.rect.x = (level.width-1) * self.tileSize.x
+            if self.pos.y < 0:
+                self.pos.y = 0
+                self.rect.y = 0
+            elif self.pos.y >= level.height-1:
+                self.pos.y = level.height-1
+                self.rect.y = (level.height-1) * self.tileSize.y
             # Move
             self.getNPCDirection()
             self.updateNPCAnimation(dt)
