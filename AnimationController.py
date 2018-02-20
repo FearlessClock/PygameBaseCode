@@ -40,7 +40,7 @@ class AnimationController:
         return self.loadedAnimation.getCurrentAnimationFrame()
 
     def stepCurrentAnimation(self, deltaTime):
-        self.animationStrips.get(self.currentAnimation).stepForwardAnimation(deltaTime)
+        self.loadedAnimation.stepForwardAnimation(deltaTime)
 
     def changeCurrentAnimationTo(self, nextAnimation):
         # if self.currentAnimation is not None:
@@ -50,3 +50,6 @@ class AnimationController:
             animation = self.animationStrips.get(self.currentAnimation)
             if animation is not None:
                 self.loadedAnimation = animation
+
+    def resetCurrentAnimation(self):
+        self.loadedAnimation.resetAnimation()
