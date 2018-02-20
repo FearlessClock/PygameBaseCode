@@ -27,9 +27,9 @@ class Camera(pygame.sprite.Group):
 
     def MoveCameraToPlayerLocation(self, player):
         self.screenRect.x = max(player.x - self.screenRect.width / 2, 0)
-        self.screenRect.x = min((self.levelSize.x * self.tileSize.x - self.screenRect.width), self.screenRect.x)
+        self.screenRect.x = min(max(0, (self.levelSize.x * self.tileSize.x - self.screenRect.width)), self.screenRect.x)
         self.screenRect.y = max(player.y - self.screenRect.height / 2, 0)
-        self.screenRect.y = min((self.levelSize.y * self.tileSize.y - self.screenRect.height), self.screenRect.y)
+        self.screenRect.y = min(max(0, (self.levelSize.y * self.tileSize.y - self.screenRect.height)), self.screenRect.y)
 
     def draw(self, surface, player, npcList):
         self.MoveCameraToPlayerLocation(player.rect)
