@@ -12,7 +12,7 @@ class UIElement(pygame.sprite.Sprite):
         self.y = y
         self.id = id
         if image is not None:
-            self.image = pygame.transform.scale(image, (width, height))
+            self.image = pygame.transform.scale(image, (int(width), int(height)))
         else:
             self.image = None
         self.isAnimation = False

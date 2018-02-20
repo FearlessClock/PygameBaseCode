@@ -117,7 +117,6 @@ class Player(MobileUnit):
                     else:
                         self.pos.y = 0
 
-        print(self.pos)
         self.updateAnimation()
         if self.attack:
             self.net.spawnWeapon(self.direction, self.pos)

@@ -1,5 +1,6 @@
 import pygame
 
+import GameEndChecker
 from Camera import Camera
 from Vector import Vector
 from GUI import GUI
@@ -18,6 +19,7 @@ class MainGameScreen:
         self.mapHolder.getCurrentMap().NPCManager.update(dt, self.mapHolder.getCurrentMap(), self.player.sprites()[0])
         self.camera.setPosition(int(self.player.sprites()[0].pos.x),
                                 int(self.player.sprites()[0].pos.y))
+        GameEndChecker.gameEnd(self.mapHolder.getNumberOfCreatures(), self.player.sprites()[0].score)
 
     def movePlayer(self, event):
         for player in self.player.sprites():

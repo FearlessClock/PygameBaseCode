@@ -9,7 +9,7 @@ from Cell import Cell
 class Map:
     """The base class for the interacting candidates"""
 
-    def __init__(self, mapName, tileSize, tileLoader):
+    def __init__(self, mapName, tileSize, tileLoader, nmbrOfCreatures):
         self.id = 0
         self.neighbors = []
 
@@ -23,7 +23,7 @@ class Map:
                                                          {0: False, 1: True, 2: False, 3: True, 4: True},
                                                          {1: 0, 2: 0, 3: 0, 4: 0})
         self.tileSize = tileSize
-        self.NPCManager = NPCManager(1, self.tileSize, tileLoader, self)
+        self.NPCManager = NPCManager(nmbrOfCreatures, self.tileSize, tileLoader, self)
 
     def getWidth(self):
         return self.width

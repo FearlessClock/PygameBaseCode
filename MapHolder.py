@@ -12,12 +12,16 @@ class MapHolder:
         idValues = []
         self.currentMap = 3
         self.tileSize = tileSize
+        self.nmbrOfCreautresPerMap = 5
         for i in range(len(self.mapNames)):
-            map = Map(self.mapNames[i], self.tileSize, tileLoader)
+            map = Map(self.mapNames[i], self.tileSize, tileLoader, self.nmbrOfCreautresPerMap)
             mapValues.append(map)
             idValues.append(map.id)
         self.maps = dict(zip(idValues, mapValues))
         self.changeToMap(self.currentMap)
+
+    def getNumberOfCreatures(self):
+        return len(self.maps) * self.nmbrOfCreautresPerMap
 
     def getCurrentMap(self):
         return self.loadedMap

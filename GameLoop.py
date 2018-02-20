@@ -8,6 +8,7 @@ import os
 
 import pygame
 
+import GameEndChecker
 import UserEvents
 from GameStates import GameStates
 from InGameMenu import InGameMenu
@@ -16,6 +17,7 @@ from MapHolder import MapHolder
 from Player import Player
 from StartMenu import StartUpMenu
 from Vector import Vector
+from WinScreen import WinScreen
 from Window import Window
 
 
@@ -44,6 +46,7 @@ class Gameloop:
         self.addStateFunction(GameStates.STARTMENU, self.StartMenuState)
         self.addStateFunction(GameStates.GAME, self.GameState)
         self.addStateFunction(GameStates.MENU, self.MenuState)
+        self.addStateFunction(GameStates.WINSCREEN, self.winState)
 
         self.player = Player(2, 1, self.window.tileLoader, self.TILE_SIZE, Vector(0, 10))
 
@@ -59,6 +62,9 @@ class Gameloop:
 
         self.mainGameScreen = MainGameScreen(self.mapHolder, self.window.tileLoader, self.player, screenSize, self.font_renderer)
         self.window.addScreenToRender(self.mainGameScreen, "MainGame")
+
+        self.winScreen = WinScreen(screenSize, self.window.tileLoader, self.font_renderer)
+        self.window.addScreenToRender(self.winScreen, "WinScreen")
 
         self.clock = pygame.time.Clock()
         self.deltaTime = 0
@@ -83,6 +89,9 @@ class Gameloop:
     def changeGameLoopStateToStartMenu(self):
         self.gameState = GameStates.STARTMENU
 
+    def changeGameLoopStateToWin(self):
+        self.gameState = GameStates.WINSCREEN
+
     def quitGame(self):
         pygame.quit()
         exit(0)
@@ -106,6 +115,12 @@ class Gameloop:
         self.window.drawScreen("MainGame")
         return True
 
+    def winState(self):
+        self.winScreen.handleInput(self.getInputs())
+        self.window.clearScreen()
+        self.window.updateScreen("WinScreen", self.deltaTime)
+        self.window.drawScreen("WinScreen")
+
     def getInputs(self):
         events = pygame.event.get([pygame.KEYDOWN, pygame.KEYUP])
         return events
@@ -122,6 +137,8 @@ class Gameloop:
                     self.changeGameLoopStateToMenu()
                 else:
                     self.changeGameLoopStateToGAME()
+            elif event.type == UserEvents.WINSTATE:
+                self.changeGameLoopStateToWin()
             elif event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                 pygame.event.post(event)
 
@@ -143,3 +160,4 @@ class Gameloop:
                 print("Error")
 
             self.clock.tick(60)
+

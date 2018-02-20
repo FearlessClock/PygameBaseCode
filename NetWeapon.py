@@ -10,7 +10,7 @@ class Net(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.animationController = animationController
         self.animationController.changeCurrentAnimationTo(Direction.UP)
-        self.image = self.animationController.getCurrentAnimationFrame()
+        self.image = None#self.animationController.getCurrentAnimationFrame()
         self.tileSize = tileSize
         self.pos = Vector(-1, -1)
         self.rect = Rect(-1, -1, self.tileSize.x/2, self.tileSize.y/2)
@@ -47,6 +47,7 @@ class Net(pygame.sprite.Sprite):
 
     def despawn(self):
         self.image = None
+        self.animationController.resetCurrentAnimation()
         self.hitPos = Vector(-1, -1)
         self.rect.x = -1
         self.rect.y = -1
