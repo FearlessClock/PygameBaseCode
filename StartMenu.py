@@ -6,6 +6,7 @@ from UIImage import UIImage
 
 
 class StartUpMenu(InteractiveScreen):
+    """Start menu screen, Start the game"""
     def __init__(self, tileLoader, fontRenderer):
         InteractiveScreen.__init__(self)
         self.tileLoader = tileLoader

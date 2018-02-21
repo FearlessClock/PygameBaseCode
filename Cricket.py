@@ -10,9 +10,11 @@ from Vector import Vector
 
 
 class Cricket(MobileUnit):
+    """Cricket: Creature that can be caught by the player"""
     def __init__(self, id, x, y, tileSize, animationController, scale):
+        """Create the creature"""
         self.directionSignificanceDict = {Direction.DOWN: "NPCDown", Direction.LEFT: "NPCLeft",
-                                          Direction.RIGHT: "NPCRight"}
+                                          Direction.RIGHT: "NPCRight", Direction.UP: "NPCUp"}
         MobileUnit.__init__(self, id, x, y, tileSize, animationController, self.directionSignificanceDict, scale)
         self.closeness = 2
         self.maxSpeed = 3

@@ -2,6 +2,7 @@ import pygame
 
 
 class InteractiveScreen:
+    """Interactive screen parent for the different menu like screens"""
     def __init__(self):
         self.visuelElements = []
         self.interactiveElements = []
@@ -9,19 +10,21 @@ class InteractiveScreen:
         self.useRacks = True
 
     def addInteractiveElement(self, element):
+        """Add an element like a button"""
         self.interactiveElements.append(element)
 
     def addVisuelElement(self, element):
+        """Add an element like an image"""
         self.visuelElements.append(element)
 
-    def getInteractiveElementByIndex(self, id):
-        if len(self.interactiveElements) > id:
-            return self.interactiveElements[id]
+    def getInteractiveElementByIndex(self, index):
+        if len(self.interactiveElements) > index:
+            return self.interactiveElements[index]
         return None
 
-    def getVisuelElementByIndex(self, id):
-        if len(self.visuelElements) > id:
-            return self.visuelElements[id]
+    def getVisuelElementByIndex(self, index):
+        if len(self.visuelElements) > index:
+            return self.visuelElements[index]
         return None
 
     def getVisuelElementById(self, id):
@@ -37,18 +40,21 @@ class InteractiveScreen:
         return None
 
     def updateScreen(self, deltaTime):
+        """Update all the elements on the screen."""
         for elem in self.visuelElements:
             elem.update(deltaTime)
         for elem in self.interactiveElements:
             elem.update(deltaTime)
 
     def drawScreen(self, surface):
+        """Draw all the elements on the screen"""
         for elem in self.visuelElements:
             elem.draw(surface)
         for elem in self.interactiveElements:
             elem.draw(surface)
 
     def handleInput(self, press):
+        """Handle the inputs on the screen like up and down"""
         for keypress in press:
             if keypress.type == pygame.KEYDOWN:
                 if keypress.key == pygame.K_DOWN:

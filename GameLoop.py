@@ -21,8 +21,8 @@ from WinScreen import WinScreen
 from Window import Window
 
 
-# Class with all the game loop functions and information
 class Gameloop:
+    """Class all the game loop functions and informations"""
     def __init__(self, gameName, screenSize, tileSize):
 
         self.width = screenSize.x
@@ -70,12 +70,15 @@ class Gameloop:
         self.deltaTime = 0
 
     def addStateFunction(self, state, function):
+        """Add a function called by each state"""
         self.stateFunctionDict.update({state: function})
 
     def getStateFunctionCallback(self, state):
+        """Return the state functions callback"""
         return self.stateFunctionDict.get(state)
 
     def setMusic(self, filename):
+        """Set the music playing"""
         pygame.mixer.music.fadeout(100)  # Avoid music change being too sudden!
         pygame.mixer.music.load(filename)
         pygame.mixer.music.play(-1)
@@ -96,6 +99,7 @@ class Gameloop:
         pygame.quit()
         exit(0)
 
+    """State functions for each State"""
     def StartMenuState(self):
         self.startMenu.handleInput(self.getInputs())
         self.window.updateScreen("StartMenu", self.deltaTime)
@@ -122,10 +126,12 @@ class Gameloop:
         self.window.drawScreen("WinScreen")
 
     def getInputs(self):
+        """Return the events corresponding to each button press"""
         events = pygame.event.get([pygame.KEYDOWN, pygame.KEYUP])
         return events
 
     def handleEvents(self):
+        """Handle the events thrown by the game"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

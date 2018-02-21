@@ -1,6 +1,7 @@
 import pygame as pygame
 
 class Cell(pygame.sprite.Sprite):
+    """Each square on the grid"""
     def __init__(self, i, j, solid, image, doorway=None):
         # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)

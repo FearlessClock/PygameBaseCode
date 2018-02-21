@@ -1,6 +1,7 @@
 from enum import Enum
 
 class Direction(Enum):
+    """Enum: Direction in which the entity moves"""
     LEFT = 1
     RIGHT = 2
     UP = 3

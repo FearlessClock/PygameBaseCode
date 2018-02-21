@@ -7,6 +7,7 @@ from UIImage import UIImage
 
 
 class WinScreen(InteractiveScreen):
+    """Screen shown when the game is won."""
     def __init__(self, screenSize, tileLoader, fontRenderer):
         InteractiveScreen.__init__(self)
         print(screenSize)
@@ -22,7 +23,7 @@ class WinScreen(InteractiveScreen):
 
     def newGame(self):
         try:
-            pygame.event.post(pygame.event.Event(UserEvents.RESUMEGAME))
+            pygame.event.post(pygame.event.Event(UserEvents.STARTGAME))
         except pygame.error:
             print("Queue is full")
 

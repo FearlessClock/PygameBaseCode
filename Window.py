@@ -8,6 +8,7 @@ from Vector import Vector
 
 
 class Window:
+    """Class used to render the screen and hold all the window information"""
     def __init__(self, windowSize, caption, TILE_SIZE, font_renderer):
         self.width = windowSize.ix()
         self.height = windowSize.iy()
@@ -26,6 +27,7 @@ class Window:
 
         self.tileLoader = TileLoader(TILE_SIZE, windowSize)
 
+        """Load all the images and spritesheets"""
         self.tileLoader.addSpriteSheet("player", os.path.join('images', 'playerSpriteSheet.png'), Vector(400, 600), Vector(40, 60), 8, 4)
         self.tileLoader.addSpriteSheet("startMenuBackground", os.path.join('images', 'blablaMockup.png'), Vector(640, 540), Vector(500, 500), 1, 1)
         self.tileLoader.addSpriteSheet("menuBackground", os.path.join('images', 'menuBackground.png'), Vector(347, 399), Vector(300, 310), 1, 1)
@@ -35,17 +37,19 @@ class Window:
         self.tileLoader.addSpriteSheet("mapTiles", os.path.join('images', "TileSheet.png"), Vector(16,16), Vector(self.TILE_SIZE.x,self.TILE_SIZE.y), 3,3)
         self.tileLoader.addSpriteSheet("healthBars", os.path.join('images', 'healthBarSpriteSheet.png'), Vector(200, 50), Vector(200, 50), 1, 5)
 
-        self.tileLoader.addSpriteSheet("NPC", os.path.join("images", "NPC.png"), Vector(32,32), Vector(36,36), 3, 4)
-        self.tileLoader.addSpriteSheet("CRICKET", os.path.join("images", "CRICKET.png"), Vector(32,32), Vector(36,36), 3, 4)
-
+        self.tileLoader.addSpriteSheet("NPC", os.path.join("images", "NPC.png"), Vector(32,32), Vector(36,36), 4, 4)
+        self.tileLoader.addSpriteSheet("CRICKET", os.path.join("images", "CRICKET.png"), Vector(32,32), Vector(36,36), 4, 4)
 
         self.tileLoader.addSpriteSheet("netAnimation", os.path.join("images", "netAnimation.png"), Vector(32, 32), self.TILE_SIZE, 4, 8)
 
+        """Create all the different animations"""
         NPCAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 0), "NPCDown", 200)
+        NPCAnimationUp = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 3), "NPCUp", 200)
         NPCAnimationLeft = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 1), "NPCLeft", 200)
         NPCAnimationRight = AnimationStrip(self.tileLoader.getImageStripByName("NPC", 2), "NPCRight", 200)
 
         CRICKETAnimationDown = AnimationStrip(self.tileLoader.getImageStripByName("CRICKET", 0), "NPCDown", 200)
+        CRICKETAnimationUp = AnimationStrip(self.tileLoader.getImageStripByName("CRICKET", 3), "NPCUp", 200)
         CRICKETAnimationLeft = AnimationStrip(self.tileLoader.getImageStripByName("CRICKET", 1), "NPCLeft", 200)
         CRICKETAnimationRight = AnimationStrip(self.tileLoader.getImageStripByName("CRICKET", 2), "NPCRight", 200)
 
@@ -63,19 +67,21 @@ class Window:
         netAnimationLeft = AnimationStrip(self.tileLoader.getImageStripByName("netAnimation", 3), Direction.LEFT, 50)
         netAnimationRight = AnimationStrip(self.tileLoader.getImageStripByName("netAnimation", 2), Direction.RIGHT, 50)
 
-
+        """Create all the animation controllers"""
         animationController = AnimationController()
         animationController.addAnimations(playerAnimationUp, playerAnimationDown, playerAnimationLeft, playerAnimationRight, playerAnimationIdleUp, playerAnimationIdleDown, playerAnimationIdleLeft, playerAnimationIdleRight)
         self.tileLoader.addAnimation("player", animationController)
 
         animationController = AnimationController()
         animationController.addAnimations(NPCAnimationDown)
+        animationController.addAnimations(NPCAnimationUp)
         animationController.addAnimations(NPCAnimationLeft)
         animationController.addAnimations(NPCAnimationRight)
         self.tileLoader.addAnimation("NPC", animationController)
 
         animationController = AnimationController()
         animationController.addAnimations(CRICKETAnimationDown)
+        animationController.addAnimations(CRICKETAnimationUp)
         animationController.addAnimations(CRICKETAnimationLeft)
         animationController.addAnimations(CRICKETAnimationRight)
         self.tileLoader.addAnimation("CRICKET", animationController)
@@ -90,25 +96,29 @@ class Window:
         # startMenu = StartUpMenu(tileLoader, changeGameLoopStateToRPG, quitGame)
 
     def addScreenToRender(self, screenToImport, screenName):
+        """Add an interactive screen or game screen to the render for easy and unified access."""
         self.screenDictionary.update({screenName:len(self.screens)})
         self.screens.append(screenToImport)
 
     def getScreen(self, screenName):
+        """Get a screen from its name."""
         return self.screens[self.screenDictionary[screenName]]
 
     def getSize(self):
+        """Get the screen size."""
         return self.screen.get_size()
 
     def clearScreen(self):
+        """Clear everything on the screen."""
         background = pygame.Surface(self.getSize())
         background = background.convert()
         background.fill((0, 0, 0))
         self.screen.blit(background, (0, 0))
 
     def drawScreen(self, screenName):
-        """Draw the screen, characters and pop up if activated"""
-        #self.clearScreen()
+        """Draw the screen by name"""
         self.screens[self.screenDictionary[screenName]].drawScreen(self)
 
     def updateScreen(self, screenName, deltaTime):
+        """Update the screen with delta time"""
         self.screens[self.screenDictionary[screenName]].updateScreen(deltaTime)
