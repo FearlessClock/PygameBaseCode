@@ -6,7 +6,7 @@ from Vector import Vector
 
 
 class MobileUnit(pygame.sprite.Sprite):
-    """The base class for the interacting candidates"""
+    """The base class for the interacting entities"""
 
     def __init__(self, id, x, y, tileSize, animationController, directionSigDict, scale):
         pygame.sprite.Sprite.__init__(self)
@@ -36,4 +36,5 @@ class MobileUnit(pygame.sprite.Sprite):
         self.animationController.stepCurrentAnimation(dt)
 
     def updateAnimation(self):
+        """Update the animation controller"""
         self.animationController.changeCurrentAnimationTo(self.directionSignificanceDict.get(self.direction))

@@ -6,11 +6,12 @@ from Vector import Vector
 
 
 class Net(pygame.sprite.Sprite):
+    """A weapon used by the player to catch flies"""
     def __init__(self, animationController, tileSize):
         pygame.sprite.Sprite.__init__(self)
         self.animationController = animationController
         self.animationController.changeCurrentAnimationTo(Direction.UP)
-        self.image = None#self.animationController.getCurrentAnimationFrame()
+        self.image = None   # None so that the image isn't shown
         self.tileSize = tileSize
         self.pos = Vector(-1, -1)
         self.rect = Rect(-1, -1, self.tileSize.x/2, self.tileSize.y/2)
@@ -18,6 +19,7 @@ class Net(pygame.sprite.Sprite):
         self.netDirection = Direction.UP
 
     def spawnWeapon(self, direction, position):
+        """Spawn the weapon by looking at the direction and position"""
         offset = 0.4
         self.image = self.animationController.getCurrentAnimationFrame()
 
@@ -46,6 +48,7 @@ class Net(pygame.sprite.Sprite):
                 self.animationController.changeCurrentAnimationTo(Direction.RIGHT)
 
     def despawn(self):
+        """Remove the weapon from the screen"""
         self.image = None
         self.animationController.resetCurrentAnimation()
         self.hitPos = Vector(-1, -1)
@@ -53,11 +56,13 @@ class Net(pygame.sprite.Sprite):
         self.rect.y = -1
 
     def updateAnimation(self, dt):
+        """If the weapon is in use, update the animation"""
         if self.image is not None:
             self.animationController.stepCurrentAnimation(dt)
             self.image = self.animationController.getCurrentAnimationFrame()
 
     def draw(self, surface_blit, screenRect):
+        """If the image is set, draw the animation"""
         if self.image is not None:
             self.pos = self.hitPos
             self.rect.x = self.hitPos.x * self.tileSize.x

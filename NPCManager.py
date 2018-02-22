@@ -8,11 +8,12 @@ from NPCFactory import NPCFactory, NPCType
 
 
 class NPCManager:
+    """Hive mind of the Creatures. Each creature use individual but updated from a central point"""
     def __init__(self, nmbrOfNPC, tileSize, tileLoader, level):
+        """Random generation of the creatures"""
         self.npcHolder = pygame.sprite.Group()
         self.npcFactory = NPCFactory(tileSize, tileLoader)
         for i in range(nmbrOfNPC):
-            x, y = 2, 2
             x, y = randrange(1, level.width - 1), randrange(1, level.height - 1)
             while level.isObstacle(x, y):
                 x, y = randrange(1, level.width - 1), randrange(1, level.height - 1)

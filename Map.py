@@ -7,9 +7,10 @@ from Cell import Cell
 
 
 class Map:
-    """The base class for the interacting candidates"""
+    """Map of the world"""
 
     def __init__(self, mapName, tileSize, tileLoader, nmbrOfCreatures):
+        """Init the map and read the map from the csv"""
         self.id = 0
         self.neighbors = []
 
@@ -35,6 +36,7 @@ class Map:
         return self.map[pos.iy()][pos.ix()]
 
     def getTilesInRect(self, rect, screenTileSize):
+        """Return all the tiles inside a rect"""
         tiles = []
         rectY = max(0, rect.y - 1)
         rectYMax = min(self.height, rectY + rect.height + 3)
@@ -51,11 +53,13 @@ class Map:
         return tiles
 
     def setVisibleTiles(self, rect):
+        """Set the camera view group to the tiles in a rect"""
         tiles = self.getTilesInRect(rect)
         self.cameraViewGroup.empty()
         self.cameraViewGroup.add(tiles)
 
     def isObstacle(self, x, y):
+        """Check if the cell at x, y is solid"""
         if self.map[int(y)][int(x)].solid:
             return True
         return False
@@ -63,7 +67,7 @@ class Map:
     def readMap(self, filelocation, mapName, tileLoader, spriteSheetName, tileSignificanceDict,
                 doorwaySignificanceDict):
         """Return:
-                Tile size, map size, the map and the position of the item
+                Tile size, map size and the map
         """
 
         # Read the file containing the map

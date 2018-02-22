@@ -22,13 +22,13 @@ class Player(MobileUnit):
                                           Direction.LEFT: "playerLeft", Direction.RIGHT: "playerRight",
                                           Direction.IDLE_UP: "playerIdleUp", Direction.IDLE_DOWN: "playerIdleDown",
                                           Direction.IDLE_LEFT: "playerIdleLeft",
-                                          Direction.IDLE_RIGHT: "playerIdleRight"}
+                                          Direction.IDLE_RIGHT: "playerIdleRight"}  # So much useless work! I was so dumb doing this!
         MobileUnit.__init__(self, 0, x, y, tileSize, tileLoader.getAnimationController("player"),
                             self.directionSignificanceDict, self.size)
         self.imageCollisionOffset = imageCollisionOffset
         self.tileSize = tileSize
 
-        self.speed = 1.5
+        self.speed = 0.2
 
         self.speedX = 0
         self.speedY = 0
@@ -51,10 +51,13 @@ class Player(MobileUnit):
 
         self.score = 0
 
+        self.FPS = 60
+
     def update(self, dt, mapHolder):
+        """Update the player movement """
         # pos.x/y are in "world units"
-        newX = self.pos.x + self.speedX * dt / 60 / 5 * self.speed
-        newY = self.pos.y + self.speedY * dt / 60 / 5 * self.speed
+        newX = self.pos.x + self.speedX * dt / self.FPS * self.speed
+        newY = self.pos.y + self.speedY * dt / self.FPS * self.speed
         currentMap = mapHolder.getCurrentMap()
         tempRectHolder = Rect(self.rect)
         res = Rect(self.rect)
@@ -80,7 +83,7 @@ class Player(MobileUnit):
             res[1] = newY * self.tileSize.y
         self.rect = res
 
-        # Extremities
+        # If the player has reached a door, go to the next zone
         tile = currentMap.getTileAt(Vector(int(newX + self.collisionOffset.x), int(newY + self.collisionOffset.y)))
         if tile.doorway is not None and tile.doorway is not 0:
             mapHolder.changeToMap(currentMap.neighbors[int(tile.doorway - 1)])
@@ -127,6 +130,7 @@ class Player(MobileUnit):
         self.stepCurrentAnimation(dt)
 
     def move(self, events):
+        """Move the player according to the use inputs"""
         for event in events:
             if event.type == KEYDOWN:
                 if event.key == UP:
@@ -196,6 +200,7 @@ class Player(MobileUnit):
         self.getPlayerDirection()
 
     def getPlayerDirection(self):
+        """Get the direction of the player from its speed"""
         if self.speedY > 0:
             self.direction = Direction.DOWN
         elif self.speedY < 0:
@@ -215,6 +220,7 @@ class Player(MobileUnit):
                 self.direction = Direction.IDLE_LEFT
 
     def stopMovement(self):
+        """Make sure the player isn't moving"""
         self.speedX = 0
         self.speedY = 0
 
@@ -224,14 +230,15 @@ class Player(MobileUnit):
         self.rightPressed = False
 
     def getFirstEmptyFromMax(self, level, vertical, x, y):
+        """get the first tile that is empty from the right side of the level"""
         xMax = level.width - 1
         yMax = level.height - 1
         if vertical:
             for i in range(level.height - 1):
-                if not level.isObstacle(x-1, yMax - i):
+                if not level.isObstacle(x - 1, yMax - i):
                     return yMax - i
         else:
             for i in range(level.width - 1):
-                if not level.isObstacle(xMax - i, y-1):
+                if not level.isObstacle(xMax - i, y - 1):
                     return xMax - i
         return None

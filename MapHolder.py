@@ -3,7 +3,7 @@ from TileLoader import TileLoader
 
 
 class MapHolder:
-
+    """Class holding all the loaded maps"""
     def __init__(self, filenames, tileSize, tileLoader):
         self.mapNames = filenames  #
         self.maps = []
@@ -21,6 +21,7 @@ class MapHolder:
         self.changeToMap(self.currentMap)
 
     def getNumberOfCreatures(self):
+        """Return the number of creatures loaded across all the maps"""
         return len(self.maps) * self.nmbrOfCreautresPerMap
 
     def getCurrentMap(self):

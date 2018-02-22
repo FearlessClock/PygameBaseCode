@@ -2,7 +2,7 @@ from enum import Enum
 from select import select
 
 from Cricket import Cricket
-from NPC import NPC
+from Fly import Fly
 
 
 class NPCType(Enum):
@@ -16,7 +16,7 @@ class NPCFactory:
 
     def createNPC(self, id, npcType, x,y, animationControllerName, scale):
         if npcType == NPCType.FLY:
-            return NPC(id, x, y, self.tileSize, self.tileLoader.getAnimationController(animationControllerName), scale)
+            return Fly(id, x, y, self.tileSize, self.tileLoader.getAnimationController(animationControllerName), scale)
         elif npcType == NPCType.CRICKET:
             return Cricket(id, x, y, self.tileSize, self.tileLoader.getAnimationController(animationControllerName), scale)
         else:

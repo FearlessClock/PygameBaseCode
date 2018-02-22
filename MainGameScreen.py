@@ -7,6 +7,7 @@ from GUI import GUI
 
 
 class MainGameScreen:
+    """The actual game screen showing the tiles and player"""
     def __init__(self, mapHolder, tileLoader, player, screenSize, fontRenderer):
         self.mapHolder = mapHolder
         self.player = pygame.sprite.Group(player)
