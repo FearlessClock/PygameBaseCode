@@ -11,7 +11,10 @@ class MainGameScreen:
     def __init__(self, mapHolder, tileLoader, player, screenSize, fontRenderer):
         self.mapHolder = mapHolder
         self.player = pygame.sprite.Group(player)
+        self.screenSize = screenSize
         self.camera = Camera(Vector(8, 8), self.mapHolder.tileSize, screenSize)
+        self.tileLoader = tileLoader
+        self.fontRenderer = fontRenderer
         self.GUI = GUI(tileLoader, fontRenderer)
 
     def updateScreen(self, dt):

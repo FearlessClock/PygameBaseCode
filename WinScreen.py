@@ -23,7 +23,7 @@ class WinScreen(InteractiveScreen):
 
     def newGame(self):
         try:
-            pygame.event.post(pygame.event.Event(UserEvents.STARTGAME))
+            pygame.event.post(pygame.event.Event(UserEvents.GOTOSTARTMENU))
         except pygame.error:
             print("Queue is full")
 

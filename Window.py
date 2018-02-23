@@ -100,6 +100,10 @@ class Window:
         self.screenDictionary.update({screenName:len(self.screens)})
         self.screens.append(screenToImport)
 
+    def updateScreenFromRender(self, screenName, screenToImport):
+        index = self.screenDictionary.get(screenName)
+        self.screens[index] = screenToImport
+
     def getScreen(self, screenName):
         """Get a screen from its name."""
         return self.screens[self.screenDictionary[screenName]]

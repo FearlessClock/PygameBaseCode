@@ -12,7 +12,7 @@ class MapHolder:
         idValues = []
         self.currentMap = 3
         self.tileSize = tileSize
-        self.nmbrOfCreautresPerMap = 5
+        self.nmbrOfCreautresPerMap = 1
         for i in range(len(self.mapNames)):
             map = Map(self.mapNames[i], self.tileSize, tileLoader, self.nmbrOfCreautresPerMap)
             mapValues.append(map)

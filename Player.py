@@ -83,6 +83,7 @@ class Player(MobileUnit):
             res[1] = newY * self.tileSize.y
         self.rect = res
 
+        print(Vector(int(newX + self.collisionOffset.x), int(newY + self.collisionOffset.y)))
         # If the player has reached a door, go to the next zone
         tile = currentMap.getTileAt(Vector(int(newX + self.collisionOffset.x), int(newY + self.collisionOffset.y)))
         if tile.doorway is not None and tile.doorway is not 0:

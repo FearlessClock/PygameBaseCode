@@ -27,6 +27,7 @@ class Gameloop:
 
         self.width = screenSize.x
         self.height = screenSize.y
+        self.screenSize = screenSize
         self.TILE_SIZE = tileSize
         self.gameState = GameStates.STARTMENU
 
@@ -93,6 +94,12 @@ class Gameloop:
         self.gameState = GameStates.STARTMENU
 
     def changeGameLoopStateToWin(self):
+        self.player = Player(2, 1, self.window.tileLoader, self.TILE_SIZE, Vector(0, 10))
+        self.mapHolder = MapHolder(["map1", "map2", "map3"], self.TILE_SIZE, self.window.tileLoader)
+        self.window.updateScreenFromRender("MainGame", self.mainGameScreen)
+        self.mainGameScreen = MainGameScreen(self.mapHolder, self.window.tileLoader, self.player, self.screenSize,
+                                             self.font_renderer)
+        self.window.addScreenToRender(self.mainGameScreen, "MainGame")
         self.gameState = GameStates.WINSCREEN
 
     def quitGame(self):
@@ -145,6 +152,8 @@ class Gameloop:
                     self.changeGameLoopStateToGAME()
             elif event.type == UserEvents.WINSTATE:
                 self.changeGameLoopStateToWin()
+            elif event.type == UserEvents.GOTOSTARTMENU:
+                self.changeGameLoopStateToStartMenu()
             elif event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                 pygame.event.post(event)
 
